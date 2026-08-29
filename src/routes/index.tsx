@@ -147,12 +147,12 @@ function Room() {
         </div>
       </motion.div>
 
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-20 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 p-4 sm:p-6">
-        <div className="min-w-0">
-          <h1 className="truncate font-mono text-sm tracking-[0.22em] text-white/80 uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-3 p-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:p-6">
+        <div className="min-w-0 rounded-lg border border-white/10 bg-black/55 px-4 py-3 backdrop-blur-md">
+          <h1 className="truncate font-mono text-sm tracking-[0.22em] text-emerald-300 uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
             {data.profile.name}
           </h1>
-          <p className="truncate font-mono text-[11px] text-white/45">
+          <p className="truncate font-mono text-[11px] text-white/70">
             click around the room · esc to exit
           </p>
         </div>
