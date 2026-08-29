@@ -1,23 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  Award,
-  Bug,
-  Cpu,
-  FileText,
-  FolderGit2,
-  Mail,
-  MessageSquareQuote,
-  Sparkles,
-  Terminal as TerminalIcon,
-  Wrench,
-} from "lucide-react";
+import { Bug, Github, Linkedin, Mail } from "lucide-react";
+import * as Icons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import data from "@/data/portfolio.json";
-import desktopBg from "@/assets/landscapeView.png.asset.json";
-import mobileBg from "@/assets/mobileView.png.asset.json";
+import desktopBg from "@/assets/landscapeView.png";
+import mobileBg from "@/assets/mobileView.png";
 import { Hitbox } from "@/components/room/Hitbox";
 import { GlassModal } from "@/components/room/GlassModal";
 import { Terminal } from "@/components/room/Terminal";
@@ -31,21 +21,22 @@ import {
   SkillsPanel,
   TestimonialsPanel,
 } from "@/components/room/panels";
+import { WhatsappIcon } from "@/components/icons/WhatsappIcon";
+
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Amr Mahmoud — Escape Room Portfolio" },
+      { title: data.siteMeta.title },
       {
         name: "description",
-        content:
-          "An interactive escape-room portfolio set in a dark Arch Linux battlestation. Click the room to explore projects, skills and live terminals.",
+        content: data.siteMeta.description,
       },
-      { property: "og:title", content: "Amr Mahmoud — Escape Room Portfolio" },
+      { property: "og:title", content: data.siteMeta.ogTitle },
       {
         property: "og:description",
-        content:
-          "Explore a backend engineer's portfolio by clicking around a dark, aesthetic coding room — complete with working terminals.",
+        content: data.siteMeta.ogDescription,
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -56,17 +47,12 @@ export const Route = createFileRoute("/")({
 
 type Kind = (typeof data.hitboxes)[number]["kind"];
 
-const meta: Record<string, { title: string; subtitle: string; icon: LucideIcon; size: "sm" | "md" | "lg" }> = {
-  resume: { title: "Resume", subtitle: "the short version", icon: FileText, size: "md" },
-  skills: { title: "Skills", subtitle: "the toolbox", icon: Wrench, size: "md" },
-  projects: { title: "Projects", subtitle: "things that shipped", icon: FolderGit2, size: "lg" },
-  certificates: { title: "Certificates", subtitle: "paper trail", icon: Award, size: "md" },
-  contact: { title: "Contact", subtitle: "say hello", icon: Mail, size: "md" },
-  testimonials: { title: "Testimonials", subtitle: "what people say", icon: MessageSquareQuote, size: "md" },
-  neofetch: { title: "Neofetch", subtitle: "btw i use arch", icon: Cpu, size: "md" },
-  terminal: { title: "Terminal", subtitle: "keep calm and sudo on", icon: TerminalIcon, size: "lg" },
-  easteregg: { title: "root@localhost", subtitle: "unauthorized access", icon: Sparkles, size: "md" },
-};
+const meta = Object.fromEntries(
+  Object.entries(data.panelMeta).map(([key, val]) => [
+    key,
+    { ...val, icon: (Icons as any)[val.icon] as LucideIcon },
+  ])
+) as Record<string, { title: string; subtitle: string; icon: LucideIcon; size: "sm" | "md" | "lg" }>;
 
 function Panel({ kind, onClose }: { kind: Kind; onClose: () => void }) {
   switch (kind) {
@@ -122,48 +108,78 @@ function Room() {
 
   return (
     <main className="relative h-[100svh] w-screen overflow-hidden bg-black">
-      <motion.div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+      <div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
         style={{
-          backgroundImage: `url(${isMobile ? mobileBg.url : desktopBg.url})`,
-          transformOrigin: `${origin.x}% ${origin.y}%`,
+          width: isMobile ? "max(100vw, 100vh * 1086 / 1448)" : "max(100vw, 100vh * 1448 / 1086)",
+          height: isMobile ? "max(100vh, 100vw * 1448 / 1086)" : "max(100vh, 100vw * 1086 / 1448)",
         }}
-        animate={{ scale: active ? 1.7 : 1, filter: active ? "blur(3px) brightness(0.6)" : "blur(0px) brightness(1)" }}
-        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="absolute inset-0">
-          {data.hitboxes.map((h) => (
-            <Hitbox
-              key={h.id}
-              label={h.label}
-              box={isMobile ? h.mobile : h.desktop}
-              debug={debug}
-              onSelect={(center) => {
-                setOrigin(center);
-                setActive(h.kind);
-              }}
-            />
-          ))}
-        </div>
-      </motion.div>
+        <motion.div
+          className="absolute inset-0 bg-no-repeat pointer-events-auto"
+          style={{
+            backgroundImage: `url(${isMobile ? mobileBg : desktopBg})`,
+            backgroundSize: "100% 100%",
+            transformOrigin: `${origin.x}% ${origin.y}%`,
+          }}
+          animate={{ scale: active ? 1.7 : 1, filter: active ? "blur(3px) brightness(0.6)" : "blur(0px) brightness(1)" }}
+          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div className="absolute inset-0">
+            {data.hitboxes.map((h) => (
+              <Hitbox
+                key={h.id}
+                label={h.label}
+                box={isMobile ? h.mobile : h.desktop}
+                debug={debug}
+                onSelect={(center) => {
+                  setOrigin(center);
+                  setActive(h.kind);
+                }}
+              />
+            ))}
+          </div>
+        </motion.div>
+      </div>
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-3 p-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:p-6">
-        <div className="min-w-0 rounded-lg border border-white/10 bg-black/55 px-4 py-3 backdrop-blur-md">
-          <h1 className="truncate font-mono text-sm tracking-[0.22em] text-emerald-300 uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+        <div className="justify-self-start flex flex-col min-w-0 px-4 py-3">
+          <h1 className="truncate font-mono text-xl font-bold tracking-[0.2em] text-white uppercase drop-shadow-[0_4px_8px_rgba(0,0,0,1)]">
             {data.profile.name}
           </h1>
-          <p className="truncate font-mono text-[11px] text-white/70">
-            click around the room · esc to exit
-          </p>
+          <div className="mt-2 flex w-full items-center justify-between pointer-events-auto">
+            {data.profile.github && data.profile.github !== "#" && (
+              <a href={data.profile.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="flex h-8 w-8 items-center justify-center text-white/70 transition-all duration-200 hover:scale-110 hover:text-emerald-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                <Github className="h-5 w-5" />
+              </a>
+            )}
+            {data.profile.linkedin && data.profile.linkedin !== "#" && (
+              <a href={data.profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="flex h-8 w-8 items-center justify-center text-white/70 transition-all duration-200 hover:scale-110 hover:text-emerald-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                <Linkedin className="h-5 w-5" />
+              </a>
+            )}
+            {data.profile.email && data.profile.email !== "#" && (
+              <a href={`mailto:${data.profile.email}`} aria-label="Email" className="flex h-8 w-8 items-center justify-center text-white/70 transition-all duration-200 hover:scale-110 hover:text-emerald-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                <Mail className="h-5 w-5" />
+              </a>
+            )}
+            {data.profile.whatsapp && data.profile.whatsapp !== "#" && (
+              <a href={`https://wa.me/${data.profile.whatsapp.replace(/[^0-9]/g, "")}`} aria-label="Whatsapp" target="_blank" rel="noreferrer" className="flex h-8 w-8 items-center justify-center text-white/70 transition-all duration-200 hover:scale-110 hover:text-emerald-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                <WhatsappIcon className="h-5 w-5" />
+              </a>
+            )}
+          </div>
         </div>
-        <button
-          type="button"
-          onClick={() => setDebug((v) => !v)}
-          aria-label="Toggle debug hitboxes"
-          className="pointer-events-auto grid h-8 w-8 shrink-0 place-items-center rounded-md border border-white/10 bg-black/30 text-white/25 opacity-30 backdrop-blur-sm transition hover:opacity-100"
-        >
-          <Bug className="h-3.5 w-3.5" />
-        </button>
+        {import.meta.env.DEV && (
+          <button
+            type="button"
+            onClick={() => setDebug((v) => !v)}
+            aria-label="Toggle debug hitboxes"
+            className="pointer-events-auto grid h-8 w-8 shrink-0 place-items-center rounded-md border border-white/10 bg-black/30 text-white/25 opacity-30 backdrop-blur-sm transition hover:opacity-100"
+          >
+            <Bug className="h-3.5 w-3.5" />
+          </button>
+        )}
       </div>
 
       <AnimatePresence>

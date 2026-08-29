@@ -1,11 +1,29 @@
 {
+  "siteMeta": {
+    "title": "Amr Mahmoud — Escape Room Portfolio",
+    "description": "An interactive escape-room portfolio set in a dark Arch Linux battlestation. Click the room to explore projects, skills and live terminals.",
+    "ogTitle": "Amr Mahmoud — Escape Room Portfolio",
+    "ogDescription": "Explore a backend engineer's portfolio by clicking around a dark, aesthetic coding room — complete with working terminals."
+  },
+  "panelMeta": {
+    "resume": { "title": "Resume", "subtitle": "the short version", "icon": "FileText", "size": "md" },
+    "skills": { "title": "Skills", "subtitle": "the toolbox", "icon": "Wrench", "size": "md" },
+    "projects": { "title": "Projects", "subtitle": "things that shipped", "icon": "FolderGit2", "size": "lg" },
+    "certificates": { "title": "Certificates", "subtitle": "paper trail", "icon": "Award", "size": "md" },
+    "contact": { "title": "Contact", "subtitle": "say hello", "icon": "Mail", "size": "md" },
+    "testimonials": { "title": "Testimonials", "subtitle": "what people say", "icon": "MessageSquareQuote", "size": "md" },
+    "neofetch": { "title": "Neofetch", "subtitle": "btw i use arch", "icon": "Cpu", "size": "md" },
+    "terminal": { "title": "Terminal", "subtitle": "keep calm and sudo on", "icon": "Terminal", "size": "lg" },
+    "easteregg": { "title": "root@localhost", "subtitle": "unauthorized access", "icon": "Sparkles", "size": "md" }
+  },
   "profile": {
     "name": "Amr Mahmoud",
     "role": "Backend Engineer / CS Student",
     "handle": "amr@archlinux",
-    "github": "https://github.com/",
-    "linkedin": "https://linkedin.com/",
-    "email": "amr@example.com",
+    "github": "https://github.com/amr-ma7moud",
+    "linkedin": "https://linkedin.com/in/amr-mahmoud-",
+    "email": "amr.mahmoud.dev05@gmail.com",
+    "whatsapp": "+201033050549",
     "cvUrl": "#"
   },
   "hitboxes": [
