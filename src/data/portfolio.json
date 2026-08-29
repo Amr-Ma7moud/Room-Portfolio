@@ -1,0 +1,183 @@
+{
+  "profile": {
+    "name": "Amr Mahmoud",
+    "role": "Backend Engineer / CS Student",
+    "handle": "amr@archlinux",
+    "github": "https://github.com/",
+    "linkedin": "https://linkedin.com/",
+    "email": "amr@example.com",
+    "cvUrl": "#"
+  },
+  "hitboxes": [
+    {
+      "id": "resume",
+      "label": "Resume / CV",
+      "kind": "resume",
+      "desktop": { "left": 19.1, "top": 25.8, "width": 12.0, "height": 20.3 },
+      "mobile": { "left": 16.1, "top": 22.5, "width": 16.6, "height": 15.9 }
+    },
+    {
+      "id": "skills",
+      "label": "Skills",
+      "kind": "skills",
+      "desktop": { "left": 34.9, "top": 23.8, "width": 35.2, "height": 18.6 },
+      "mobile": { "left": 35.4, "top": 22.1, "width": 27.2, "height": 18.0 }
+    },
+    {
+      "id": "projects",
+      "label": "Projects",
+      "kind": "projects",
+      "desktop": { "left": 73.9, "top": 24.7, "width": 10.7, "height": 14.5 },
+      "mobile": { "left": 80.6, "top": 24.2, "width": 12.9, "height": 9.7 }
+    },
+    {
+      "id": "certificates",
+      "label": "Certificates",
+      "kind": "certificates",
+      "desktop": { "left": 73.9, "top": 40.6, "width": 10.7, "height": 14.3 },
+      "mobile": { "left": 80.6, "top": 35.6, "width": 12.9, "height": 10.7 }
+    },
+    {
+      "id": "contact",
+      "label": "Contact",
+      "kind": "contact",
+      "desktop": { "left": 33.1, "top": 71.9, "width": 30.4, "height": 5.2 },
+      "mobile": { "left": 31.8, "top": 65.7, "width": 36.4, "height": 4.1 }
+    },
+    {
+      "id": "testimonials",
+      "label": "Testimonials",
+      "kind": "testimonials",
+      "desktop": { "left": 76.3, "top": 80.2, "width": 16.9, "height": 16.6 },
+      "mobile": { "left": 76.0, "top": 73.3, "width": 23.5, "height": 23.5 }
+    },
+    {
+      "id": "neofetch",
+      "label": "Neofetch",
+      "kind": "neofetch",
+      "desktop": { "left": 38.3, "top": 10.1, "width": 4.5, "height": 8.3 },
+      "mobile": { "left": 42.4, "top": 10.0, "width": 6.9, "height": 5.5 }
+    },
+    {
+      "id": "terminal",
+      "label": "Terminal",
+      "kind": "terminal",
+      "desktop": { "left": 76.0, "top": 58.1, "width": 5.5, "height": 13.8 },
+      "mobile": { "left": 80.6, "top": 60.5, "width": 7.8, "height": 9.3 }
+    },
+    {
+      "id": "easteregg",
+      "label": "root@localhost",
+      "kind": "easteregg",
+      "desktop": { "left": 59.0, "top": 11.1, "width": 12.4, "height": 6.9 },
+      "mobile": { "left": 62.6, "top": 10.4, "width": 16.1, "height": 4.8 }
+    }
+  ],
+  "resume": {
+    "summary": "Backend-focused engineer who lives in the terminal. Distributed systems, clean architecture, and Linux.",
+    "timeline": [
+      {
+        "period": "2023 — Present",
+        "title": "Computer Science Student",
+        "org": "E-JUST",
+        "detail": "Egypt-Japan University of Science and Technology. Algorithms, systems, and distributed computing."
+      },
+      {
+        "period": "2025",
+        "title": "Android Development Trainee",
+        "org": "DEPI",
+        "detail": "Digital Egypt Pioneers Initiative — mobile development track with hands-on production projects."
+      },
+      {
+        "period": "Ongoing",
+        "title": "Competitive Programmer",
+        "org": "ECPC / ACPC pipeline",
+        "detail": "Problem solving in C++, data structures and algorithms training."
+      }
+    ]
+  },
+  "skills": [
+    { "name": "Node.js", "level": 90 },
+    { "name": "NestJS", "level": 88 },
+    { "name": "PostgreSQL", "level": 85 },
+    { "name": "MariaDB", "level": 78 },
+    { "name": "RabbitMQ", "level": 80 },
+    { "name": "Docker", "level": 82 },
+    { "name": "Arch Linux", "level": 95 },
+    { "name": "C++", "level": 86 },
+    { "name": "Git", "level": 90 }
+  ],
+  "projects": [
+    {
+      "name": "Syncly",
+      "description": "A modular monolith architecture utilizing NestJS and RabbitMQ messaging queues for decoupled, event-driven modules.",
+      "stack": ["NestJS", "RabbitMQ", "PostgreSQL", "Docker"],
+      "url": "#"
+    },
+    {
+      "name": "Green Rabbit",
+      "description": "A financial market assistant application powered by the Meyka AI API, delivering insights and portfolio guidance.",
+      "stack": ["Node.js", "Meyka AI API", "React"],
+      "url": "#"
+    }
+  ],
+  "certificates": [
+    {
+      "title": "ECPC Qualified",
+      "issuer": "Egyptian Collegiate Programming Contest",
+      "year": "2025",
+      "detail": "Advanced through the ECPC / ACPC / ICPC competitive programming pipeline."
+    },
+    {
+      "title": "DEPI Completion",
+      "issuer": "Digital Egypt Pioneers Initiative",
+      "year": "2025",
+      "detail": "Completed the Android development track with a graduation project."
+    },
+    {
+      "title": "Backend Engineering Track",
+      "issuer": "Self-directed",
+      "year": "2024",
+      "detail": "Distributed systems, message queues, and containerized deployments."
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "Amr designs backends the way good engineers wish they could — boundaries are clear, queues are intentional, and nothing leaks.",
+      "author": "Team Lead, Syncly"
+    },
+    {
+      "quote": "He took ownership of the architecture and pulled the whole team up with him. Rare leadership for a student.",
+      "author": "DEPI Mentor"
+    },
+    {
+      "quote": "Calm under contest pressure and relentless in code review. The kind of teammate you want on the hard problem.",
+      "author": "ICPC Teammate"
+    }
+  ],
+  "neofetch": {
+    "lines": [
+      ["OS", "Arch Linux x86_64"],
+      ["Host", "ThinkPad X1 Carbon"],
+      ["Kernel", "6.9.6-arch1-1"],
+      ["DE", "KDE Plasma"],
+      ["IDE", "NVIM"],
+      ["Terminal", "tmux / kitty"],
+      ["Shell", "zsh 5.9"],
+      ["Uptime", "42 days"],
+      ["Packages", "1372 (pacman)"],
+      ["Memory", "5.36GiB / 31.37GiB"]
+    ]
+  },
+  "easterEgg": {
+    "bootLines": [
+      "[ OK ] Mounting /dev/secrets ...",
+      "[ OK ] Bypassing mainframe firewall ...",
+      "[ OK ] Injecting payload 0xDEADBEEF ...",
+      "[ OK ] Decrypting hidden repository ...",
+      "[ OK ] Access granted."
+    ],
+    "secret": "You found the root shell. The hidden project is called `nullptr` — a toy x86 kernel written for fun.",
+    "secretUrl": "#"
+  }
+}
