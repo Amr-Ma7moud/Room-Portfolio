@@ -1,95 +1,43 @@
-# Coding Room Escape
+# Amr Mahmoud — Escape Room Portfolio
 
-Act as an expert frontend React developer specializing in interactive, highly animated spatial user interfaces. 
+An interactive, "escape room" style portfolio built with React and Framer Motion. Instead of a traditional scrolling website, the user interface is completely driven by a background image of a dark, aesthetic coding room.
 
-I want to build a unique "escape room" style interactive portfolio. The user interface is completely driven by a background image of a dark, aesthetic coding room. The user clicks on specific items in the room to trigger a smooth zoom-in animation, followed by a glass-morphism modal displaying my portfolio information.
+Users can explore the room by clicking on specific items to trigger smooth zoom-in animations, followed by sleek glass-morphism modals displaying portfolio information, skills, projects, and even functional interactive terminals.
 
-### 1. Image Assets & Responsive Layout
-I have two images to act as the full-screen background:
-- Desktop Background: "landscapeView.png" (Wide aspect ratio).
-- Mobile Background: "mobileView.png" (Tall aspect ratio).
+## ✨ Features
 
-Implementation details:
-- Use a wrapper div that takes up `100vw` and `100vh` with `overflow-hidden`.
-- Set the background image dynamically based on screen size (use Tailwind's responsive breakpoints `bg-[url(...)] md:bg-[url(...)]`).
-- The background must use `background-size: cover` and `background-position: center`.
+- **Spatial User Interface:** A fully responsive, interactive background (adapts to both mobile and desktop screens).
+- **Smooth Animations:** Powered by `framer-motion`, clicking a hitbox calculates its center and zooms the entire room into focus before fading in the content.
+- **Glass-morphism UI:** Sleek, dark-themed, blurred modals for a modern look (`backdrop-blur-md`, `bg-black/40`).
+- **Interactive Terminals:** Functional React terminal emulators that allow users to type commands like `ls`, `cd`, `whoami`, `projects`, and `skills` to interact with the portfolio data.
+- **Easter Eggs:** Hidden terminals and scripts waiting to be discovered.
+- **Data-Driven:** All portfolio content (resume, skills, projects, certificates, testimonials) is easily configurable via a single `src/data/portfolio.json` file.
+- **Debug Mode:** A built-in debug toggle to easily view and adjust invisible hitboxes overlaid on the room elements.
 
-### 2. The Core Mechanic: Hitboxes & Animations
-- Overlay an absolute positioned container on top of the background.
-- Inside this container, create invisible, clickable "hitbox" buttons (e.g., `<button className="absolute ...">`). 
-- **Crucial:** Use percentage-based positioning (`top`, `left`, `width`, `height`) for the hitboxes so they scale perfectly with the background image. 
-- **Debug Mode:** Add a hidden "debug mode" toggle (e.g., a keyboard shortcut or a small transparent button in the corner) that gives these hitboxes a semi-transparent red background (`bg-red-500/50`) so I can easily adjust the Tailwind percentage coordinates in the code later.
-- **Animation:** Use `framer-motion`. When a hitbox is clicked:
-  1. Calculate the center of the clicked hitbox.
-  2. Scale/Zoom the entire background container towards that point (approximate a 1.5x to 2x zoom).
-  3. Fade in a modal perfectly centered on the screen.
-  4. Clicking outside the modal, clicking "esc" button from the keyboard or clicking an "X" button should reverse the animation (fade out modal, zoom out background back to scale 1).
+## 🛠️ Tech Stack
 
-### 3. Element Mapping & Placeholder Content
-Create the following hitboxes with this exact mapped content. Use sleek, dark-themed, highly blurred glass-morphism (`backdrop-blur-md bg-black/40 border border-white/10 rounded-xl text-white`) for all modals.
+- **Framework:** React + TypeScript (Vite/TanStack Router)
+- **Styling:** Tailwind CSS
+- **Animations:** Framer Motion
+- **Icons:** Lucide React
+- **Package Manager:** Bun (or npm/yarn/pnpm)
 
-1. **Left Poster ("Talk is cheap") -> Resume/CV**
-   - Modal Content: A clean timeline. Mention "Computer Science Student at E-JUST" and "Android Development Trainee at DEPI". Add a "Download CV" button.
+## 📁 Project Structure
 
-2. **Middle Pegboard (Keyboard & Headphones) -> Skills**
-   - Modal Content: Display skills using badges or progress bars. Include: Node.js, NestJS, PostgreSQL, MariaDB, RabbitMQ, Docker, Arch Linux, C++, and Git.
+- `src/assets/`: Contains the high-resolution background images for desktop and mobile layouts.
+- `src/components/room/`: Core components driving the interactive room experience (Hitboxes, Modals, Panels, Terminals).
+- `src/data/portfolio.json`: The central data file for configuring all content, hitboxes, and terminal responses.
+- `src/routes/`: TanStack Router file-based routing configuration.
 
-3. **Top Right Poster (Coffee script) -> Projects**
-   - Modal Content: A scrollable grid of project cards. Include:
-     - "Syncly": A modular monolith architecture utilizing NestJS and RabbitMQ messaging queues.
-     - "Green Rabbit": A financial market assistant application using Meyka AI API.
+## ⚙️ Customizing Hitboxes
 
-4. **Middle Right Poster (Arch Linux) -> Certificates**
-   - Modal Content: Minimalist cards showing achievements, mentioning competitive programming (ECPC/ACPC/ICPC pipelines) and DEPI completion.
+To adjust the clickable areas (hitboxes) over the background image:
 
-5. **Desk Keyboard & Mouse -> Contact**
-   - Modal Content: A simple glass-morphism contact form (Name, Email, Message) and links to GitHub and LinkedIn.
+1. Open `src/data/portfolio.json`.
+2. Locate the `hitboxes` array.
+3. Turn on Debug Mode in the UI (or press `Shift + D`) to make the hitboxes visible as red squares.
+4. Adjust the percentage-based `left`, `top`, `width`, and `height` values for both `desktop` and `mobile` views until they perfectly align with the visual elements in the background image.
 
-6. **Desk Drawers -> Testimonials**
-   - Modal Content: A carousel or list of quotes praising backend architecture and leadership skills.
+## 📄 License
 
-7. **Penguin on the Shelf -> Neofetch**
-   - Modal Content: A terminal-styled window displaying a classic Neofetch output:
-     `OS: Arch Linux`
-     `DE: KDE Plasma`
-	 `IDE: NVIM`
-     `Terminal: tmux / kitty`
-     `Uptime: 42 days`
-
-### 4. Interactive Terminals
-There are two special hitboxes that shouldn't just open standard modals, but should open functional, interactive React terminal emulators (you can build a lightweight custom one or use a library like `react-terminal`) that act as a normal terminal with the normal functionality of any terminal:
-
-8. **Bottom Right Glowing Sign ("Keep calm and sudo on") -> Full Feature Terminal**
-   - Modal Content: A large terminal window. Users can type commands like `ls`, `cd`, `help`, `whoami`, `projects`, `skills`. Have it print out interactive text responses based on the data mentioned above.
-
-9. **Top Glowing Sign ("root@localhost:~$") -> Easter Egg Terminal**
-   - Modal Content: A smaller terminal window that starts a fun script (like a Matrix rain effect or a "hacking in progress" typing animation) before revealing a secret message or a link to a hidden project.
-
-### Technical Constraints:
-- Ensure all text is highly legible against the dark backgrounds.
-- Add an "Escape" key event listener to close any open modal and reset the zoom.
-- Include Lucide React icons for the modal headers and buttons.
-- Build this as a single-page application structure with cleanly separated components for the Modals, Hitboxes, and Terminals.
-- Make all the data configurable in a JSON file so adding new data is easy.
-- Make sure all the elemnts aren't coded for just one dimension and it is both responsive & interactive
-
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/6b4a3e81-0147-451a-8b58-b4ed55f294e8).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+This project is open-source and available under the [MIT License](LICENSE).
