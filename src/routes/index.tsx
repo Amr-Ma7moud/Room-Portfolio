@@ -6,8 +6,8 @@ import * as Icons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import data from "@/data/portfolio.json";
-import desktopBg from "@/assets/landscapeView.png";
-import mobileBg from "@/assets/mobileView.png";
+import desktopBg from "@/assets/landscapeView.webp";
+import mobileBg from "@/assets/mobileView.webp";
 import { Hitbox } from "@/components/room/Hitbox";
 import { GlassModal } from "@/components/room/GlassModal";
 import { Terminal } from "@/components/room/Terminal";
@@ -84,6 +84,7 @@ function Room() {
   const [origin, setOrigin] = useState({ x: 50, y: 50 });
   const [debug, setDebug] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
@@ -92,6 +93,14 @@ function Room() {
     mq.addEventListener("change", update);
     return () => mq.removeEventListener("change", update);
   }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const img = new window.Image();
+    img.src = isMobile ? mobileBg : desktopBg;
+    img.onload = () => setIsLoading(false);
+    img.onerror = () => setIsLoading(false); // fallback to not block forever
+  }, [isMobile]);
 
   const close = useCallback(() => setActive(null), []);
 
@@ -108,6 +117,22 @@ function Room() {
 
   return (
     <main className="relative h-[100svh] w-screen overflow-hidden bg-black">
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div
+            key="loading"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black"
+          >
+            <div className="flex flex-col items-center gap-4">
+              <div className="h-8 w-8 animate-spin rounded-full border-4 border-emerald-500/30 border-t-emerald-500" />
+              <p className="font-mono text-sm tracking-widest text-emerald-500/70 uppercase animate-pulse">Establishing Connection...</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
         style={{
