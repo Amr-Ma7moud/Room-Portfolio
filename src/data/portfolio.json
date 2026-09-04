@@ -1,12 +1,12 @@
 {
   "siteMeta": {
-    "title": "Amr Mahmoud — Escape Room Portfolio",
+    "title": "Amr Mahmoud - Escape Room Portfolio",
     "description": "An interactive escape-room portfolio set in a dark Arch Linux battlestation. Click the room to explore projects, skills and live terminals.",
-    "ogTitle": "Amr Mahmoud — Escape Room Portfolio",
+    "ogTitle": "Amr Mahmoud - Escape Room Portfolio",
     "ogDescription": "Explore a backend engineer's portfolio by clicking around a dark, aesthetic coding room — complete with working terminals."
   },
   "panelMeta": {
-    "resume": { "title": "Resume", "subtitle": "the short version", "icon": "FileText", "size": "md" },
+    "resume": { "title": "Resume", "subtitle": "the full document", "icon": "FileText", "size": "lg" },
     "skills": { "title": "Skills", "subtitle": "the toolbox", "icon": "Wrench", "size": "md" },
     "projects": { "title": "Projects", "subtitle": "things that shipped", "icon": "FolderGit2", "size": "lg" },
     "certificates": { "title": "Certificates", "subtitle": "paper trail", "icon": "Award", "size": "md" },
@@ -24,7 +24,7 @@
     "linkedin": "https://linkedin.com/in/amr-mahmoud-",
     "email": "amr.mahmoud.dev05@gmail.com",
     "whatsapp": "+201033050549",
-    "cvUrl": "#"
+    "cvUrl": "/AmrMahmoudCV.pdf"
   },
   "hitboxes": [
     {
@@ -115,15 +115,31 @@
     ]
   },
   "skills": [
-    { "name": "Node.js", "level": 90 },
-    { "name": "NestJS", "level": 88 },
-    { "name": "PostgreSQL", "level": 85 },
-    { "name": "MariaDB", "level": 78 },
-    { "name": "RabbitMQ", "level": 80 },
-    { "name": "Docker", "level": 82 },
-    { "name": "Arch Linux", "level": 95 },
-    { "name": "C++", "level": 86 },
-    { "name": "Git", "level": 90 }
+    { "name": "Node.js" },
+    { "name": "Express JS"},
+    { "name": "NestJS" },
+    { "name": "PostgreSQL" },
+    { "name": "MariaDB" },
+    { "name": "RabbitMQ" },
+    { "name": "Python"},
+    { "name": "Flask"},
+    { "name": "Railway"},
+    { "name": "PHP"},
+    { "name": "Laravel"},
+    { "name": "Gradle"},
+    { "name": "Docker" },
+    { "name": "Arch Linux" },
+    { "name": "C++" },
+    { "name": "Git" },
+    { "name": "Redis" },
+    { "name": "Ansible"},
+    { "name": "System Adminstration"},
+    { "name": "Java"},
+    { "name": "API Dog"},
+    { "name": "Zod"},
+    { "name": "BullMQ"},
+    { "name": "Grammy"},
+    { "name": "Kotlin"}
   ],
   "projects": [
     {
@@ -135,7 +151,7 @@
     {
       "name": "Green Rabbit",
       "description": "A financial market assistant application powered by the Meyka AI API, delivering insights and portfolio guidance.",
-      "stack": ["Node.js", "Meyka AI API", "React"],
+      "stack": ["Node.js", "Meyka AI API", "PostgreSQL","Redis"],
       "url": "#"
     }
   ],
@@ -176,7 +192,7 @@
   "neofetch": {
     "lines": [
       ["OS", "Arch Linux x86_64"],
-      ["Host", "ThinkPad X1 Carbon"],
+      ["Host", "HP Pro Book 445R G7"],
       ["Kernel", "6.9.6-arch1-1"],
       ["DE", "KDE Plasma"],
       ["IDE", "NVIM"],
@@ -184,7 +200,7 @@
       ["Shell", "zsh 5.9"],
       ["Uptime", "42 days"],
       ["Packages", "1372 (pacman)"],
-      ["Memory", "5.36GiB / 31.37GiB"]
+      ["Memory", "13.9GiB / 14.6GiB"]
     ]
   },
   "easterEgg": {

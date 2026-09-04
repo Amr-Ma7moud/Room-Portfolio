@@ -6,6 +6,7 @@ import {
   Github,
   Linkedin,
   Mail,
+  Maximize2,
   Quote,
   Send,
   Terminal as TerminalIcon,
@@ -16,61 +17,55 @@ const card = "rounded-lg border border-white/10 bg-white/5 p-4";
 
 export function ResumePanel() {
   return (
-    <div className="space-y-5">
-      <p className="text-sm text-white/70">{data.resume.summary}</p>
-      <ol className="relative space-y-5 border-l border-white/15 pl-6">
-        {data.resume.timeline.map((item) => (
-          <li key={item.title} className="relative">
-            <span className="absolute -left-[27px] top-1.5 h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_12px_2px_rgba(52,211,153,0.6)]" />
-            <p className="font-mono text-[11px] tracking-widest text-emerald-300/80 uppercase">
-              {item.period}
-            </p>
-            <h3 className="mt-1 text-base font-semibold">{item.title}</h3>
-            <p className="text-sm text-white/60">{item.org}</p>
-            <p className="mt-1 text-sm text-white/50">{item.detail}</p>
-          </li>
-        ))}
-      </ol>
-      <a
-        href={data.profile.cvUrl}
-        download
-        className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium transition hover:bg-white/20"
-      >
-        <Download className="h-4 w-4" /> Download CV
-      </a>
+    <div className="flex flex-col gap-4 w-full">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <p className="text-sm text-white/70 max-w-xl leading-relaxed">
+          {data.resume.summary}
+        </p>
+        <div className="flex gap-2 shrink-0">
+          <a
+            href={data.profile.cvUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-medium transition hover:bg-white/20 text-white/80"
+          >
+            <Maximize2 className="h-3.5 w-3.5" /> Full Screen
+          </a>
+          <a
+            href={data.profile.cvUrl}
+            download
+            className="inline-flex items-center gap-2 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-medium transition hover:bg-emerald-500/20 text-emerald-300"
+          >
+            <Download className="h-3.5 w-3.5" /> Download
+          </a>
+        </div>
+      </div>
+
+      <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-inner">
+        <iframe 
+          src={`${data.profile.cvUrl}#view=FitH&toolbar=0`}
+          className="w-full h-[60vh] min-h-[400px] border-none bg-white/5"
+          title="Resume PDF"
+        />
+      </div>
     </div>
   );
 }
 
 export function SkillsPanel() {
   return (
-    <div className="space-y-4">
-      <div className="flex flex-wrap gap-2">
-        {data.skills.map((s) => (
-          <span
-            key={s.name}
-            className="rounded-full border border-white/10 bg-white/10 px-3 py-1 font-mono text-xs text-white/85"
-          >
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+      {data.skills.map((s) => (
+        <div
+          key={s.name}
+          className="group relative flex cursor-default items-center gap-3 rounded-lg border border-white/10 bg-white/5 px-4 py-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-500/30 hover:bg-emerald-500/10 hover:shadow-[0_0_15px_rgba(16,185,129,0.1)]"
+        >
+          <div className="h-1.5 w-1.5 shrink-0 rounded-full bg-white/20 transition-all duration-300 group-hover:bg-emerald-400 group-hover:shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
+          <span className="truncate font-mono text-sm font-medium text-white/70 transition-colors duration-300 group-hover:text-emerald-50">
             {s.name}
           </span>
-        ))}
-      </div>
-      <div className="grid gap-3 sm:grid-cols-2">
-        {data.skills.map((s) => (
-          <div key={s.name} className="min-w-0">
-            <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
-              <span className="truncate text-sm text-white/80">{s.name}</span>
-              <span className="shrink-0 font-mono text-xs text-white/45">{s.level}%</span>
-            </div>
-            <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
-              <div
-                className="h-full rounded-full bg-gradient-to-r from-emerald-400/80 to-emerald-200/80"
-                style={{ width: `${s.level}%` }}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 }

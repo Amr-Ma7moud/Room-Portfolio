@@ -16,7 +16,7 @@ const fs: Dir = {
           `# ${p.name}\n${p.description}\nstack: ${p.stack.join(", ")}`,
         ]),
       ),
-      "skills.txt": data.skills.map((s) => `${s.name.padEnd(14)} ${s.level}%`).join("\n"),
+      "skills.txt": data.skills.map((s) => s.name).join("\n"),
     },
   },
   etc: { "motd": "Keep calm and sudo on." },
@@ -137,11 +137,7 @@ export function Terminal({ onClose, compact = false }: { onClose: () => void; co
         );
         break;
       case "skills":
-        out(
-          data.skills
-            .map((s) => `${s.name.padEnd(13)} ${"█".repeat(Math.round(s.level / 5)).padEnd(20, "░")} ${s.level}%`)
-            .join("\n"),
-        );
+        out(data.skills.map((s) => `• ${s.name}`).join("\n"));
         break;
       case "contact":
         out(
