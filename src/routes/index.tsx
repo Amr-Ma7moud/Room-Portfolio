@@ -1,8 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, lazy, Suspense } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Bug, Github, Linkedin, Mail } from "lucide-react";
-import * as Icons from "lucide-react";
+import {
+  // Bottom bar icons
+  Bug,
+  Github,
+  Linkedin,
+  Mail,
+  // Panel meta icons (replaces `import * as Icons`)
+  FileText,
+  Wrench,
+  FolderGit2,
+  Award,
+  MessageSquareQuote,
+  Cpu,
+  Terminal as TerminalIcon,
+  Sparkles,
+} from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import data from "@/data/portfolio.json";
@@ -10,36 +24,51 @@ import desktopBg from "@/assets/landscapeView.webp";
 import mobileBg from "@/assets/mobileView.webp";
 import { Hitbox } from "@/components/room/Hitbox";
 import { GlassModal } from "@/components/room/GlassModal";
-import { Terminal } from "@/components/room/Terminal";
-import { EasterEggTerminal } from "@/components/room/EasterEggTerminal";
-import {
-  CertificatesPanel,
-  ContactPanel,
-  NeofetchPanel,
-  ProjectsPanel,
-  ResumePanel,
-  SkillsPanel,
-  TestimonialsPanel,
-} from "@/components/room/panels";
 import { WhatsappIcon } from "@/components/icons/WhatsappIcon";
 
+// ── Lazy-load every panel — none of these are needed on initial paint ──
+const ResumePanel       = lazy(() => import("@/components/room/panels/ResumePanel").then(m => ({ default: m.ResumePanel })));
+const SkillsPanel       = lazy(() => import("@/components/room/panels/SkillsPanel").then(m => ({ default: m.SkillsPanel })));
+const ProjectsPanel     = lazy(() => import("@/components/room/panels/ProjectsPanel").then(m => ({ default: m.ProjectsPanel })));
+const CertificatesPanel = lazy(() => import("@/components/room/panels/CertificatesPanel").then(m => ({ default: m.CertificatesPanel })));
+const ContactPanel      = lazy(() => import("@/components/room/panels/ContactPanel").then(m => ({ default: m.ContactPanel })));
+const TestimonialsPanel = lazy(() => import("@/components/room/panels/TestimonialsPanel").then(m => ({ default: m.TestimonialsPanel })));
+const NeofetchPanel     = lazy(() => import("@/components/room/panels/NeofetchPanel").then(m => ({ default: m.NeofetchPanel })));
+const Terminal          = lazy(() => import("@/components/room/Terminal").then(m => ({ default: m.Terminal })));
+const EasterEggTerminal = lazy(() => import("@/components/room/EasterEggTerminal").then(m => ({ default: m.EasterEggTerminal })));
 
+// ── Explicit icon map — replaces `import * as Icons` (tree-shakeable) ──
+const iconMap: Record<string, LucideIcon> = {
+  FileText,
+  Wrench,
+  FolderGit2,
+  Award,
+  Mail,
+  MessageSquareQuote,
+  Cpu,
+  Terminal: TerminalIcon,
+  Sparkles,
+};
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: data.siteMeta.title },
-      {
-        name: "description",
-        content: data.siteMeta.description,
-      },
+      { name: "description", content: data.siteMeta.description },
       { property: "og:title", content: data.siteMeta.ogTitle },
-      {
-        property: "og:description",
-        content: data.siteMeta.ogDescription,
-      },
+      { property: "og:description", content: data.siteMeta.ogDescription },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [
+      // Preload both background images so the browser fetches them
+      // in parallel with JS — not after it — eliminating one full RTT.
+      { rel: "preload", as: "image", href: desktopBg },
+      { rel: "preload", as: "image", href: mobileBg },
+      // Warm up DNS + TLS for external profile links
+      { rel: "preconnect", href: "https://github.com" },
+      { rel: "preconnect", href: "https://linkedin.com" },
+      { rel: "dns-prefetch", href: "https://wa.me" },
     ],
   }),
   component: Room,
@@ -50,33 +79,63 @@ type Kind = (typeof data.hitboxes)[number]["kind"];
 const meta = Object.fromEntries(
   Object.entries(data.panelMeta).map(([key, val]) => [
     key,
-    { ...val, icon: (Icons as any)[val.icon] as LucideIcon },
+    { ...val, icon: iconMap[val.icon] as LucideIcon },
   ])
 ) as Record<string, { title: string; subtitle: string; icon: LucideIcon; size: "sm" | "md" | "lg" }>;
 
+// Minimal spinner shown inside the modal while the lazy chunk loads
+function PanelFallback() {
+  return (
+    <div className="flex h-32 items-center justify-center">
+      <div className="h-5 w-5 animate-spin rounded-full border-2 border-emerald-500/30 border-t-emerald-400" />
+    </div>
+  );
+}
+
 function Panel({ kind, onClose }: { kind: Kind; onClose: () => void }) {
-  switch (kind) {
-    case "resume":
-      return <ResumePanel />;
-    case "skills":
-      return <SkillsPanel />;
-    case "projects":
-      return <ProjectsPanel />;
-    case "certificates":
-      return <CertificatesPanel />;
-    case "contact":
-      return <ContactPanel />;
-    case "testimonials":
-      return <TestimonialsPanel />;
-    case "neofetch":
-      return <NeofetchPanel />;
-    case "terminal":
-      return <Terminal onClose={onClose} />;
-    case "easteregg":
-      return <EasterEggTerminal />;
-    default:
-      return null;
-  }
+  return (
+    <Suspense fallback={<PanelFallback />}>
+      {kind === "resume"       && <ResumePanel />}
+      {kind === "skills"       && <SkillsPanel />}
+      {kind === "projects"     && <ProjectsPanel />}
+      {kind === "certificates" && <CertificatesPanel />}
+      {kind === "contact"      && <ContactPanel />}
+      {kind === "testimonials" && <TestimonialsPanel />}
+      {kind === "neofetch"     && <NeofetchPanel />}
+      {kind === "terminal"     && <Terminal onClose={onClose} />}
+      {kind === "easteregg"    && <EasterEggTerminal />}
+    </Suspense>
+  );
+}
+
+// Fires the raw dynamic imports during browser idle time so chunks are
+// cached before the user clicks anything. React.lazy then resolves instantly
+// from the module cache instead of triggering a network fetch on demand.
+function usePrefetchPanels(enabled: boolean) {
+  useEffect(() => {
+    if (!enabled) return;
+
+    const prefetch = () => {
+      import("@/components/room/panels/ResumePanel");
+      import("@/components/room/panels/SkillsPanel");
+      import("@/components/room/panels/ProjectsPanel");
+      import("@/components/room/panels/CertificatesPanel");
+      import("@/components/room/panels/ContactPanel");
+      import("@/components/room/panels/TestimonialsPanel");
+      import("@/components/room/panels/NeofetchPanel");
+      import("@/components/room/Terminal");
+      import("@/components/room/EasterEggTerminal");
+    };
+
+    if (typeof requestIdleCallback !== "undefined") {
+      const id = requestIdleCallback(prefetch, { timeout: 3000 });
+      return () => cancelIdleCallback(id);
+    } else {
+      // Safari doesn't support requestIdleCallback
+      const id = setTimeout(prefetch, 200);
+      return () => clearTimeout(id);
+    }
+  }, [enabled]);
 }
 
 function Room() {
@@ -85,6 +144,9 @@ function Room() {
   const [debug, setDebug] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
+  // Prefetch all panel chunks during idle time once the room has painted
+  usePrefetchPanels(!isLoading);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
@@ -99,7 +161,7 @@ function Room() {
     const img = new window.Image();
     img.src = isMobile ? mobileBg : desktopBg;
     img.onload = () => setIsLoading(false);
-    img.onerror = () => setIsLoading(false); // fallback to not block forever
+    img.onerror = () => setIsLoading(false);
   }, [isMobile]);
 
   const close = useCallback(() => setActive(null), []);
@@ -127,7 +189,9 @@ function Room() {
           >
             <div className="flex flex-col items-center gap-4">
               <div className="h-8 w-8 animate-spin rounded-full border-4 border-emerald-500/30 border-t-emerald-500" />
-              <p className="font-mono text-sm tracking-widest text-emerald-500/70 uppercase animate-pulse">Establishing Connection...</p>
+              <p className="font-mono text-sm tracking-widest text-emerald-500/70 uppercase animate-pulse">
+                Establishing Connection...
+              </p>
             </div>
           </motion.div>
         )}
