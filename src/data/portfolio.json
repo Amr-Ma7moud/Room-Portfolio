@@ -92,76 +92,119 @@
     }
   ],
   "resume": {
-    "summary": "Backend-focused engineer who lives in the terminal. Distributed systems, clean architecture, and Linux.",
+    "summary": "Back-End Engineer and Computer Science student with experience building RESTful APIs, authentication systems, and database-driven backends using Node.js, Laravel, and Flask. Strong foundation in data structures, system design, and Linux-based development environments.",
     "timeline": [
       {
-        "period": "2023 — Present",
-        "title": "Computer Science Student",
-        "org": "E-JUST",
-        "detail": "Egypt-Japan University of Science and Technology. Algorithms, systems, and distributed computing."
+        "period": "Feb 2026 — Present",
+        "title": "CS-Club Vice-President & Instructor",
+        "org": "E-JUST Clubs",
+        "detail": "Taught Version Control (Git & GitHub) for three lectures that helped students understand basic Git command and how to collaborate with others via GitHub."
       },
       {
-        "period": "2025",
+        "period": "Jul 2025 — Nov 2025",
         "title": "Android Development Trainee",
-        "org": "DEPI",
-        "detail": "Digital Egypt Pioneers Initiative — mobile development track with hands-on production projects."
+        "org": "Digital Egypt Pioneers Initiative (DEPI)",
+        "detail": "Developed native Android applications using Kotlin and Jetpack Compose. Worked within MVVM-based Android architecture, integrating backend APIs."
       },
       {
-        "period": "Ongoing",
-        "title": "Competitive Programmer",
-        "org": "ECPC / ACPC pipeline",
-        "detail": "Problem solving in C++, data structures and algorithms training."
+        "period": "Jul 2025 — Sep 2025",
+        "title": "IT Field Intern",
+        "org": "E-JUST",
+        "detail": "Developed backend solutions for university website and course catalogue using Laravel. Developed Student Affairs portal using Laravel, React and Paymob. Gained practical understanding of networking fundamentals."
+      },
+      {
+        "period": "2023 — 2027",
+        "title": "BSc Computer Science",
+        "org": "E-JUST",
+        "detail": "GPA: 3.51/4.0. Full Scholarship Recipient through Innovators Support Fund (ISF). CS-Club Vice president."
       }
     ]
   },
   "skills": [
     { "name": "Node.js" },
-    { "name": "Express JS"},
-    { "name": "NestJS" },
+    { "name": "Express.js" },
     { "name": "PostgreSQL" },
+    { "name": "NestJS" },
     { "name": "MariaDB" },
-    { "name": "RabbitMQ" },
-    { "name": "Python"},
-    { "name": "Flask"},
+    { "name": "Python" },
+    { "name": "Flask" },
+    { "name": "PHP" },
     { "name": "Railway"},
-    { "name": "PHP"},
-    { "name": "Laravel"},
-    { "name": "Gradle"},
-    { "name": "Docker" },
-    { "name": "Arch Linux" },
+    { "name": "Laravel" },
+    { "name": "Java" },
+    { "name": "Kotlin" },
+    { "name": "Gradle" },
     { "name": "C++" },
+    { "name": "JavaScript" },
+    { "name": "HTML" },
+    { "name": "CSS" },
     { "name": "Git" },
-    { "name": "Redis" },
-    { "name": "Ansible"},
-    { "name": "System Adminstration"},
-    { "name": "Java"},
-    { "name": "API Dog"},
-    { "name": "Zod"},
-    { "name": "BullMQ"},
-    { "name": "Grammy"},
-    { "name": "Kotlin"}
+    { "name": "GitHub" },
+    { "name": "Linux" },
+    { "name": "VS Code" },
+    { "name": "Docker" },
+    { "name": "SQL" },
+    { "name": "NoSQL" },
+    { "name": "API-Dog" },
+    { "name": "JEST" }
   ],
   "projects": [
     {
-      "name": "Syncly",
-      "description": "A modular monolith architecture utilizing NestJS and RabbitMQ messaging queues for decoupled, event-driven modules.",
-      "stack": ["NestJS", "RabbitMQ", "PostgreSQL", "Docker"],
-      "url": "#"
+      "name": "E-JUST SIS",
+      "description": "Architected a Node.js/PostgreSQL admissions backend managing 90+ REST API endpoints across 15 modules. Secured multi-role access (Staff, Staff-Admin, Student, IT-Admin) using JWT-based RBAC.",
+      "stack": ["Node.js", "Express.js", "PostgreSQL", "JWT", "API Dog", "BullMQ", "zod"],
+      "github": "#",
+      "demo": "",
+      "status": "active",
+      "featured": true,
+      "role": "Backend Architect",
+      "year": "2024",
+      "highlights": [
+        "Architected modular backend managing 90+ REST API endpoints",
+        "Implemented robust JWT-based Role-Based Access Control (RBAC)",
+        "Integrated asynchronous job queues using BullMQ & Redis",
+        "Comprehensive API documentation and testing via API Dog"
+      ],
+      "imageDir": "ejust-sis"
+    },
+    {
+      "name": "Campus Connect",
+      "description": "Developed a cross-platform university engagement portal for E-JUST students featuring event management, club discovery, room booking, facility reservations, and social feed. Built RESTful API with Express.js connected to MariaDB.",
+      "stack": ["Node.js", "Express.js", "MariaDB", "zod", "JWT", "API Dog"],
+      "github": "https://github.com/Amr-Ma7moud/CampusConnect",
+      "demo": "",
+      "status": "completed",
+      "featured": false,
+      "role": "Full-Stack Developer",
+      "year": "2023 - 2024",
+      "highlights": [
+        "Built robust backend REST API using Node.js, Express, and MariaDB",
+        "Developed comprehensive features: event management, room booking, social feed",
+        "Implemented secure JWT authentication and data validation with Zod",
+        "Cross-platform support serving university student engagement needs"
+      ],
+      "imageDir": "campus-connect"
     },
     {
       "name": "Green Rabbit",
-      "description": "A financial market assistant application powered by the Meyka AI API, delivering insights and portfolio guidance.",
-      "stack": ["Node.js", "Meyka AI API", "PostgreSQL","Redis"],
-      "url": "#"
+      "description": "A financial market assistant application powered by the Perplexity AI API, delivering real-time market insights, portfolio analysis, and personalized investment guidance through a conversational interface.",
+      "stack": ["Node.js", "Express.js", "PostgreSQL", "JWT", "API Dog", "BullMQ", "Perplexity AI", "cron jobs", "railway", "Redis"],
+      "github": "#",
+      "demo": "",
+      "status": "completed",
+      "featured": false,
+      "role": "Backend Lead",
+      "year": "2024",
+      "highlights": [
+        "Integrated Perplexity AI API for intelligent conversational insights",
+        "Engineered scheduled cron jobs for automated real-time market data ingestion",
+        "Implemented complex portfolio analysis and breakdown algorithms",
+        "Deployed scalable architecture using Railway, Docker, and Redis queues"
+      ],
+      "imageDir": "green-rabbit"
     }
   ],
   "certificates": [
-    {
-      "title": "ECPC Qualified",
-      "issuer": "Egyptian Collegiate Programming Contest",
-      "year": "2025",
-      "detail": "Advanced through the ECPC / ACPC / ICPC competitive programming pipeline."
-    },
     {
       "title": "DEPI Completion",
       "issuer": "Digital Egypt Pioneers Initiative",
