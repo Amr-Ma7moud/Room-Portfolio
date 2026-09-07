@@ -1,5 +1,5 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage[margin=0.25in]{geometry}
+\usepackage[margin=0.2in]{geometry}
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{fontawesome}
@@ -12,11 +12,11 @@
 
 % Custom section formatting
 \titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
-\titlespacing*{\section}{0pt}{6pt}{6pt}
+\titlespacing*{\section}{0pt}{4pt}{4pt}
 
 % Custom subsection formatting
 \titleformat{\subsection}[runin]{\bfseries}{}{0em}{}[:]
-\titlespacing*{\subsection}{0pt}{6pt}{6pt}
+\titlespacing*{\subsection}{0pt}{4pt}{4pt}
 
 % Remove bullet points and adjust spacing
 \setlist[itemize]{leftmargin=*,noitemsep,topsep=0pt}
@@ -25,9 +25,7 @@
 
 % Header
 \begin{center}
-    {\LARGE \textbf{Amr Mahmoud }} \\ 
-    % \vspace{2pt}
-    {\large Software Engineer $\vert$ Backend Engineer} \\
+    {\LARGE \textbf{Amr Mahmoud }|}     {\large Software Engineer $\vert$ Backend Engineer} \\
     \vspace{6pt}
     \faEnvelope\ \href{mailto:amr.mahmoud.dev05@gmail.com}{amr.mahmoud.dev05@gmail.com}
     \faPhone\ +20 103 305 0549 \quad
@@ -41,44 +39,58 @@
 \section{Experience}
 
 \subsection{CS-Club Vice-President \& Instructor}
-    \textit{E-JUST Clubs} \hfill February 2026 -- present
+    \textit{E-JUST Clubs} \hfill February 2026 -- Present
     \begin{itemize}
-    \item  \href{https://cs-club-pearl.vercel.app/courses/version-control-git-github}{Taught Version Control (Git\&GitHub)} for three lectures that helped students understand basic Git command and how to collaborate with others via GitHub 
+        \item \href{https://cs-club-pearl.vercel.app/courses/version-control-git-github}{Designed and delivered a 3-lecture Version Control curriculum \textbf{(Git \& GitHub)}}, enabling students to manage codebases and collaborate effectively via pull requests and branching workflows.
     \end{itemize}
+
 \subsection{Android Development Trainee}
 \textit{Digital Egypt Pioneers Initiative (DEPI)} \hfill July 2025 -- November 2025
 \begin{itemize}
-    \item Developed native Android applications using \textbf{Kotlin} and \textbf{Jetpack Compose}.
-    \item Worked within MVVM-based Android architecture, integrating backend APIs.
+    \item Built native Android applications using \textbf{Kotlin} and \textbf{Jetpack Compose}, following \textbf{MVVM} architecture with clean separation of UI and business logic.
 \end{itemize}
 
 \subsection{IT Field Intern}
 \textit{Egypt Japan University of Science and Technology (E-JUST)} \hfill July 2025 -- September 2025
 \begin{itemize}
-    \item Developed backend solutions using PHP Laravel framework for university website
-    \item Implemented backend features for the university course catalogue using Laravel
-    \item Developed Student Affairs portal website using Laravel \& React and Integration with Paymob Payment gateway.
-    \item Gained practical understanding of networking fundamentals (TCP/IP, routing, basic security concepts) relevant to backend.
+    \item Developed and maintained backend features for the university website and course catalogue using \textbf{PHP Laravel}.
+    \item Built the Student Affairs portal with \textbf{Laravel \& React}, integrating \textbf{Paymob} payment gateway for online transactions.
+    \item Applied networking fundamentals (TCP/IP, routing, security) in a real infrastructure environment.
 \end{itemize}
 
 
 \section{Education}
 \textbf{Bachelor of Science in Computer Science and Information Technology} \\
 \textit{Egypt Japan University of Science and Technology (\textbf{E-JUST})} \hfill 2023 -- 2027 (Expected)
-\begin{itemize}
+\begin{minipage}[t]{0.48\textwidth}
+\begin{itemize}[noitemsep]
     \item GPA: 3.51/4.0
-    \item Current Level: 3rd Year
-    \item Full Scholarship Recipient through Innovators Support Fund (\textbf{ISF})
-    \item CS-Club Vice president
+    \item Current Level: 4th Year
 \end{itemize}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\begin{itemize}[noitemsep]
+    \item Full Scholarship Recipient -- Innovators Support Fund (\textbf{ISF})
+    \item CS-Club Vice President
+\end{itemize}
+\end{minipage}
 
 \section{Projects}
-\subsection{E-JUST SIS}
+% \subsection{E-JUST SIS}
+%     \begin{itemize}
+%         \item Designed and implemented the application phase of the SIS (the project still under active development).
+%         \item Architected a Node.js/PostgreSQL admissions backend managing 90+ REST API endpoints across 15 modules
+%         \item Secured multi-role access (Staff, Staff-Admin, Student, IT-Admin) using JWT-based RBAC.
+%     \item \textbf{Technologies:} Node.js, Express.js, PostgreSQL, JWT, API Dog, BullMQ, zod
+%     \end{itemize}
+
+\subsection{Light Sub Pro -- Subscription Management Telegram Bot \normalfont{\small(\href{https://t.me/light_sub_pro_bot}{@light\_sub\_pro\_bot})}}
     \begin{itemize}
-        \item Designed and implemented the application phase of the SIS (the project still under active development).
-        \item Architected a Node.js/PostgreSQL admissions backend managing 90+ REST API endpoints across 15 modules
-        \item Secured multi-role access (Staff, Staff-Admin, Student, IT-Admin) using JWT-based RBAC.
-    \item \textbf{Technologies:} Node.js, Express.js, PostgreSQL, JWT, API Dog, BullMQ, zod
+        \item Engineered a production-ready Telegram bot handling the full subscription order lifecycle - from product discovery and payment to fulfillment and Telegram-based admin management.
+        \item Integrated \textbf{4 payment gateways} (InstaPay, Vodafone Cash, Bybit, Binance) with automated crypto verification via Bybit/Binance APIs and SMS detection via \textbf{SMSgate} app; built a \textbf{merchant reseller system}, \textbf{promo code engine}, and \textbf{in-bot wallet}.
+        \item Delivered \textbf{i18n}, broadcast notifications, and a \textbf{Hono REST API} for external integrations - all backed by optimised \textbf{PostgreSQL} queries with no caching layer.
+        \item \textbf{Technologies:} Bun, Hono, PostgreSQL, grammY, TypeScript, Railway
     \end{itemize}
 
 \subsection{Green Rabbit}
@@ -86,7 +98,7 @@
         \item Integrated third-party AI services via the Perplexity AI API to power an intelligent chatbot.
         \item Secured API endpoints with JWT authentication and applied rate limiting through Redis
         \item Documented the RESTful interfaces using API Dog to streamline frontend integration.
-    \item \textbf{Technologies:} Node.js, Express.js, PostgreSQL, JWT, API Dog, BullMQ, Perplexity AI, cron jobs, railway
+    \item \textbf{Technologies:} Node.js, Express.js, PostgreSQL, JWT, API Dog, BullMQ, Perplexity AI, cron jobs, Railway
     \end{itemize}
 \subsection{Campus Connect}\href{https://github.com/Amr-Ma7moud/CampusConnect}{\underline{GitHub}} 
 \begin{itemize}
@@ -96,10 +108,10 @@
     \item \textbf{Technologies:} Node.js, Express.js, MariaDB, zod JWT, API Dog, PM2
 \end{itemize}
 \section{Skills}
-\textbf{Programming Languages:} Python, C++,  PHP, MATLAB, Java, Kotlin, JavaScript \\
-\textbf{Web Technologies:} Flask, Laravel, Node.js, Express.js, HTML, CSS \\
-\textbf{Tools \& Platforms:} Git, GitHub, Linux, VS Code, IntelliJ IDEs, Docker, Neo Vim, SQL, NoSQL, API-Dog, JEST \\
-\textbf{Core Concepts:} Object-Oriented Programming, Data Structures, Algorithms, Problem Solving,\\ \qquad \qquad API, Software Development Lifecycle, System Design \\
+\textbf{Programming Languages:} TypeScript, JavaScript, Python, PHP, Java, Kotlin, C++ \\
+\textbf{Backend \& Frameworks:} Node.js, Express.js, Hono, Bun, Laravel, Flask, grammY \\
+\textbf{Databases \& Tools:} PostgreSQL, MariaDB, Redis, Docker, Git, Linux, API Dog, Railway, Cloudflare \\
+\textbf{Concepts:} REST API Design, JWT \& RBAC, OOP, Data Structures \& Algorithms, System Design \\
 \textbf{Languages:} Arabic (Native), English (Upper Intermediate)
 
 \end{document}
