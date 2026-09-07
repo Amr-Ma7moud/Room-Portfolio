@@ -6,15 +6,67 @@
     "ogDescription": "Explore a backend engineer's portfolio by clicking around a dark, aesthetic coding room — complete with working terminals."
   },
   "panelMeta": {
-    "resume": { "title": "Resume", "subtitle": "the full document", "icon": "FileText", "size": "lg" },
-    "skills": { "title": "Skills", "subtitle": "the toolbox", "icon": "Wrench", "size": "md" },
-    "projects": { "title": "Projects", "subtitle": "things that shipped", "icon": "FolderGit2", "size": "lg" },
-    "certificates": { "title": "Certificates", "subtitle": "paper trail", "icon": "Award", "size": "md" },
-    "contact": { "title": "Contact", "subtitle": "say hello", "icon": "Mail", "size": "md" },
-    "testimonials": { "title": "Testimonials", "subtitle": "what people say", "icon": "MessageSquareQuote", "size": "md" },
-    "neofetch": { "title": "Neofetch", "subtitle": "btw i use arch", "icon": "Cpu", "size": "md" },
-    "terminal": { "title": "Terminal", "subtitle": "keep calm and sudo on", "icon": "Terminal", "size": "lg" },
-    "easteregg": { "title": "root@localhost", "subtitle": "unauthorized access", "icon": "Sparkles", "size": "md" }
+    "resume": {
+      "title": "Resume",
+      "subtitle": "the full document",
+      "icon": "FileText",
+      "size": "lg"
+    },
+    "skills": {
+      "title": "Skills",
+      "subtitle": "the toolbox",
+      "icon": "Wrench",
+      "size": "md"
+    },
+    "projects": {
+      "title": "Projects",
+      "subtitle": "things that shipped",
+      "icon": "FolderGit2",
+      "size": "lg"
+    },
+    "certificates": {
+      "title": "Certificates",
+      "subtitle": "paper trail",
+      "icon": "Award",
+      "size": "md"
+    },
+    "contact": {
+      "title": "Contact",
+      "subtitle": "say hello",
+      "icon": "Mail",
+      "size": "md"
+    },
+    "testimonials": {
+      "title": "Testimonials",
+      "subtitle": "what people say",
+      "icon": "MessageSquareQuote",
+      "size": "md"
+    },
+    "neofetch": {
+      "title": "Neofetch",
+      "subtitle": "btw i use arch",
+      "icon": "Cpu",
+      "size": "md"
+    },
+    "terminal": {
+      "title": "Terminal",
+      "subtitle": "keep calm and sudo on",
+      "icon": "Terminal",
+      "size": "lg"
+    },
+    "easteregg": {
+      "title": "root@localhost",
+      "subtitle": "unauthorized access",
+      "icon": "Sparkles",
+      "size": "md"
+    }
+  },
+  "onboarding": {
+    "title": "New here?",
+    "message": "Try clicking the glowing monitor.",
+    "targetId": "projects",
+    "dismissLabel": "Explore freely",
+    "discoveryHint": "Interactive objects light up as you explore."
   },
   "profile": {
     "name": "Amr Mahmoud",
@@ -31,64 +83,154 @@
       "id": "resume",
       "label": "Resume / CV",
       "kind": "resume",
-      "desktop": { "left": 19.1, "top": 25.8, "width": 12.0, "height": 20.3 },
-      "mobile": { "left": 16.1, "top": 22.5, "width": 16.6, "height": 15.9 }
+      "desktop": {
+        "left": 21.4,
+        "top": 25.8,
+        "width": 11,
+        "height": 19.3
+      },
+      "mobile": {
+        "left": 16.1,
+        "top": 22.5,
+        "width": 16.6,
+        "height": 15.9
+      }
     },
     {
       "id": "skills",
       "label": "Skills",
       "kind": "skills",
-      "desktop": { "left": 34.9, "top": 23.8, "width": 35.2, "height": 18.6 },
-      "mobile": { "left": 35.4, "top": 22.1, "width": 27.2, "height": 18.0 }
+      "desktop": {
+        "left": 36.9,
+        "top": 24.4,
+        "width": 31.1,
+        "height": 17
+      },
+      "mobile": {
+        "left": 35.4,
+        "top": 22.1,
+        "width": 27.2,
+        "height": 18
+      }
     },
     {
       "id": "projects",
       "label": "Projects",
       "kind": "projects",
-      "desktop": { "left": 73.9, "top": 24.7, "width": 10.7, "height": 14.5 },
-      "mobile": { "left": 80.6, "top": 24.2, "width": 12.9, "height": 9.7 }
+      "desktop": {
+        "left": 33.5,
+        "top": 41.4,
+        "width": 30,
+        "height": 19.3
+      },
+      "mobile": {
+        "left": 80.6,
+        "top": 24.2,
+        "width": 12.9,
+        "height": 9.7
+      }
     },
     {
       "id": "certificates",
       "label": "Certificates",
       "kind": "certificates",
-      "desktop": { "left": 73.9, "top": 40.6, "width": 10.7, "height": 14.3 },
-      "mobile": { "left": 80.6, "top": 35.6, "width": 12.9, "height": 10.7 }
+      "desktop": {
+        "left": 71.5,
+        "top": 40.5,
+        "width": 10,
+        "height": 12.4
+      },
+      "mobile": {
+        "left": 80.6,
+        "top": 35.6,
+        "width": 12.9,
+        "height": 10.7
+      }
     },
     {
       "id": "contact",
       "label": "Contact",
       "kind": "contact",
-      "desktop": { "left": 33.1, "top": 71.9, "width": 30.4, "height": 5.2 },
-      "mobile": { "left": 31.8, "top": 65.7, "width": 36.4, "height": 4.1 }
+      "desktop": {
+        "left": 35.2,
+        "top": 68.6,
+        "width": 18.3,
+        "height": 4.1
+      },
+      "mobile": {
+        "left": 31.8,
+        "top": 65.7,
+        "width": 36.4,
+        "height": 4.1
+      }
     },
     {
       "id": "testimonials",
       "label": "Testimonials",
       "kind": "testimonials",
-      "desktop": { "left": 76.3, "top": 80.2, "width": 16.9, "height": 16.6 },
-      "mobile": { "left": 76.0, "top": 73.3, "width": 23.5, "height": 23.5 }
+      "desktop": {
+        "left": 74.5,
+        "top": 70,
+        "width": 19,
+        "height": 27
+      },
+      "mobile": {
+        "left": 76,
+        "top": 73.3,
+        "width": 23.5,
+        "height": 23.5
+      }
     },
     {
       "id": "neofetch",
       "label": "Neofetch",
       "kind": "neofetch",
-      "desktop": { "left": 38.3, "top": 10.1, "width": 4.5, "height": 8.3 },
-      "mobile": { "left": 42.4, "top": 10.0, "width": 6.9, "height": 5.5 }
+      "desktop": {
+        "left": 39.4,
+        "top": 12.9,
+        "width": 4.5,
+        "height": 8
+      },
+      "mobile": {
+        "left": 42.4,
+        "top": 10,
+        "width": 6.9,
+        "height": 5.5
+      }
     },
     {
       "id": "terminal",
       "label": "Terminal",
       "kind": "terminal",
-      "desktop": { "left": 76.0, "top": 58.1, "width": 5.5, "height": 13.8 },
-      "mobile": { "left": 80.6, "top": 60.5, "width": 7.8, "height": 9.3 }
+      "desktop": {
+        "left": 73.5,
+        "top": 56.6,
+        "width": 4.5,
+        "height": 10.1
+      },
+      "mobile": {
+        "left": 80.6,
+        "top": 60.5,
+        "width": 7.8,
+        "height": 9.3
+      }
     },
     {
       "id": "easteregg",
       "label": "root@localhost",
       "kind": "easteregg",
-      "desktop": { "left": 59.0, "top": 11.1, "width": 12.4, "height": 6.9 },
-      "mobile": { "left": 62.6, "top": 10.4, "width": 16.1, "height": 4.8 }
+      "desktop": {
+        "left": 58.7,
+        "top": 13.4,
+        "width": 11,
+        "height": 6.4
+      },
+      "mobile": {
+        "left": 62.6,
+        "top": 10.4,
+        "width": 16.1,
+        "height": 4.8
+      }
     }
   ],
   "resume": {
@@ -121,32 +263,84 @@
     ]
   },
   "skills": [
-    { "name": "Node.js" },
-    { "name": "Express.js" },
-    { "name": "PostgreSQL" },
-    { "name": "NestJS" },
-    { "name": "MariaDB" },
-    { "name": "Python" },
-    { "name": "Flask" },
-    { "name": "PHP" },
-    { "name": "Railway"},
-    { "name": "Laravel" },
-    { "name": "Java" },
-    { "name": "Kotlin" },
-    { "name": "Gradle" },
-    { "name": "C++" },
-    { "name": "JavaScript" },
-    { "name": "HTML" },
-    { "name": "CSS" },
-    { "name": "Git" },
-    { "name": "GitHub" },
-    { "name": "Linux" },
-    { "name": "VS Code" },
-    { "name": "Docker" },
-    { "name": "SQL" },
-    { "name": "NoSQL" },
-    { "name": "API-Dog" },
-    { "name": "JEST" }
+    {
+      "name": "Node.js"
+    },
+    {
+      "name": "Express.js"
+    },
+    {
+      "name": "PostgreSQL"
+    },
+    {
+      "name": "NestJS"
+    },
+    {
+      "name": "MariaDB"
+    },
+    {
+      "name": "Python"
+    },
+    {
+      "name": "Flask"
+    },
+    {
+      "name": "PHP"
+    },
+    {
+      "name": "Railway"
+    },
+    {
+      "name": "Laravel"
+    },
+    {
+      "name": "Java"
+    },
+    {
+      "name": "Kotlin"
+    },
+    {
+      "name": "Gradle"
+    },
+    {
+      "name": "C++"
+    },
+    {
+      "name": "JavaScript"
+    },
+    {
+      "name": "HTML"
+    },
+    {
+      "name": "CSS"
+    },
+    {
+      "name": "Git"
+    },
+    {
+      "name": "GitHub"
+    },
+    {
+      "name": "Linux"
+    },
+    {
+      "name": "VS Code"
+    },
+    {
+      "name": "Docker"
+    },
+    {
+      "name": "SQL"
+    },
+    {
+      "name": "NoSQL"
+    },
+    {
+      "name": "API-Dog"
+    },
+    {
+      "name": "JEST"
+    }
   ],
   "projects": [
     {
@@ -188,7 +382,18 @@
     {
       "name": "Green Rabbit",
       "description": "A financial market assistant application powered by the Perplexity AI API, delivering real-time market insights, portfolio analysis, and personalized investment guidance through a conversational interface.",
-      "stack": ["Node.js", "Express.js", "PostgreSQL", "JWT", "API Dog", "BullMQ", "Perplexity AI", "cron jobs", "railway", "Redis"],
+      "stack": [
+        "Node.js",
+        "Express.js",
+        "PostgreSQL",
+        "JWT",
+        "API Dog",
+        "BullMQ",
+        "Perplexity AI",
+        "cron jobs",
+        "railway",
+        "Redis"
+      ],
       "github": "#",
       "demo": "",
       "status": "completed",
@@ -256,5 +461,46 @@
     ],
     "secret": "You found the root shell. The hidden project is called `nullptr` — a toy x86 kernel written for fun.",
     "secretUrl": "#"
+  },
+  "terminal": {
+    "commands": [
+      "help",
+      "ls",
+      "cd",
+      "pwd",
+      "cat",
+      "whoami",
+      "projects",
+      "skills",
+      "contact",
+      "neofetch",
+      "echo",
+      "date",
+      "clear",
+      "exit",
+      "history",
+      "tree",
+      "uname",
+      "uptime",
+      "fortune",
+      "banner",
+      "open",
+      "man",
+      "ll"
+    ],
+    "banner": "\n    ___    __  _________ \n   /   |  /  |/  / __ \\\n  / /| | / /|_/ / /_/ /\n / ___ |/ /  / / _, _/ \n/_/  |_/_/  /_/_/ |_|  \n",
+    "fortunes": [
+      "A SQL query goes into a bar, walks up to two tables and asks... 'Can I join you?'",
+      "There are 10 types of people in the world: those who understand binary, and those who don't.",
+      "I would love to change the world, but they won't give me the source code.",
+      "My code works, I have no idea why.",
+      "Software is like sex: it's better when it's free. — Linus Torvalds"
+    ],
+    "uptimes": [
+      "up 42 days, 13:37,  1 user,  load average: 0.00, 0.01, 0.05",
+      "up 1 year, 0 days, 0 mins, 0 users, load average: 99.99, 99.99, 99.99 (send help)",
+      "up 2 mins, 1 user, load average: 0.10, 0.05, 0.01 (just woke up)"
+    ],
+    "motd": "Keep calm and sudo on."
   }
 }
