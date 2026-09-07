@@ -39,3 +39,4 @@ src/cv/*.toc
 src/cv/*.fls
 src/cv/*.fdb_latexmk
 src/cv/_minted*/
+src/cv/*.synctex.gz
