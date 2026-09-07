@@ -35,8 +35,8 @@ jobs:
             tectonic-packages-
 
       - name: Install tectonic
-        # pinned to v3.0.0 commit SHA — verify at https://github.com/wtfjoke/setup-tectonic
-        uses: wtfjoke/setup-tectonic@5b42571c4f9d4e74c3fa544cb5f71b81b9f02d2
+        # pinned to v3 tag SHA — verified via git ls-remote
+        uses: wtfjoke/setup-tectonic@8a63d072f8390efdff59da7fa08aa49e3c1f5e1b
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -46,8 +46,8 @@ jobs:
       - name: Commit compiled PDF
         # Only commit on push to main, not on PRs
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-        # pinned to v5.0.0 commit SHA — verify at https://github.com/stefanzwi/git-auto-commit-action
-        uses: stefanzwi/git-auto-commit-action@8234e24a3b9efa7e48c4c9f1f5e91a03c3fcdb0
+        # pinned to v5 tag SHA — verified via git ls-remote
+        uses: stefanzweifel/git-auto-commit-action@b863ae1933cb653a53c021fe36dbb774e1fb9403
         with:
           commit_message: "ci: compile CV [skip ci]"
           file_pattern: "public/AmrMahmoudCV.pdf"
