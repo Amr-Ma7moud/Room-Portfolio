@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useState, lazy, Suspense } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   // Bottom bar icons
   Bug,
@@ -16,6 +16,7 @@ import {
   Cpu,
   Terminal as TerminalIcon,
   Sparkles,
+  X,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -27,15 +28,37 @@ import { GlassModal } from "@/components/room/GlassModal";
 import { WhatsappIcon } from "@/components/icons/WhatsappIcon";
 
 // ── Lazy-load every panel — none of these are needed on initial paint ──
-const ResumePanel       = lazy(() => import("@/components/room/panels/ResumePanel").then(m => ({ default: m.ResumePanel })));
-const SkillsPanel       = lazy(() => import("@/components/room/panels/SkillsPanel").then(m => ({ default: m.SkillsPanel })));
-const ProjectsPanel     = lazy(() => import("@/components/room/panels/ProjectsPanel").then(m => ({ default: m.ProjectsPanel })));
-const CertificatesPanel = lazy(() => import("@/components/room/panels/CertificatesPanel").then(m => ({ default: m.CertificatesPanel })));
-const ContactPanel      = lazy(() => import("@/components/room/panels/ContactPanel").then(m => ({ default: m.ContactPanel })));
-const TestimonialsPanel = lazy(() => import("@/components/room/panels/TestimonialsPanel").then(m => ({ default: m.TestimonialsPanel })));
-const NeofetchPanel     = lazy(() => import("@/components/room/panels/NeofetchPanel").then(m => ({ default: m.NeofetchPanel })));
-const Terminal          = lazy(() => import("@/components/room/Terminal").then(m => ({ default: m.Terminal })));
-const EasterEggTerminal = lazy(() => import("@/components/room/EasterEggTerminal").then(m => ({ default: m.EasterEggTerminal })));
+const ResumePanel = lazy(() =>
+  import("@/components/room/panels/ResumePanel").then((m) => ({ default: m.ResumePanel })),
+);
+const SkillsPanel = lazy(() =>
+  import("@/components/room/panels/SkillsPanel").then((m) => ({ default: m.SkillsPanel })),
+);
+const ProjectsPanel = lazy(() =>
+  import("@/components/room/panels/ProjectsPanel").then((m) => ({ default: m.ProjectsPanel })),
+);
+const CertificatesPanel = lazy(() =>
+  import("@/components/room/panels/CertificatesPanel").then((m) => ({
+    default: m.CertificatesPanel,
+  })),
+);
+const ContactPanel = lazy(() =>
+  import("@/components/room/panels/ContactPanel").then((m) => ({ default: m.ContactPanel })),
+);
+const TestimonialsPanel = lazy(() =>
+  import("@/components/room/panels/TestimonialsPanel").then((m) => ({
+    default: m.TestimonialsPanel,
+  })),
+);
+const NeofetchPanel = lazy(() =>
+  import("@/components/room/panels/NeofetchPanel").then((m) => ({ default: m.NeofetchPanel })),
+);
+const Terminal = lazy(() =>
+  import("@/components/room/Terminal").then((m) => ({ default: m.Terminal })),
+);
+const EasterEggTerminal = lazy(() =>
+  import("@/components/room/EasterEggTerminal").then((m) => ({ default: m.EasterEggTerminal })),
+);
 
 // ── Explicit icon map — replaces `import * as Icons` (tree-shakeable) ──
 const iconMap: Record<string, LucideIcon> = {
@@ -76,12 +99,17 @@ export const Route = createFileRoute("/")({
 
 type Kind = (typeof data.hitboxes)[number]["kind"];
 
+const ONBOARDING_STORAGE_KEY = "portfolio-room-onboarding-complete";
+
 const meta = Object.fromEntries(
   Object.entries(data.panelMeta).map(([key, val]) => [
     key,
     { ...val, icon: iconMap[val.icon] as LucideIcon },
-  ])
-) as Record<string, { title: string; subtitle: string; icon: LucideIcon; size: "sm" | "md" | "lg" }>;
+  ]),
+) as Record<
+  string,
+  { title: string; subtitle: string; icon: LucideIcon; size: "sm" | "md" | "lg" }
+>;
 
 // Minimal spinner shown inside the modal while the lazy chunk loads
 function PanelFallback() {
@@ -92,19 +120,72 @@ function PanelFallback() {
   );
 }
 
-function Panel({ kind, onClose }: { kind: Kind; onClose: () => void }) {
+function Panel({
+  kind,
+  onClose,
+  onOpenPanel,
+}: {
+  kind: Kind;
+  onClose: () => void;
+  onOpenPanel: (kind: Kind) => void;
+}) {
   return (
     <Suspense fallback={<PanelFallback />}>
-      {kind === "resume"       && <ResumePanel />}
-      {kind === "skills"       && <SkillsPanel />}
-      {kind === "projects"     && <ProjectsPanel />}
+      {kind === "resume" && <ResumePanel />}
+      {kind === "skills" && <SkillsPanel />}
+      {kind === "projects" && <ProjectsPanel />}
       {kind === "certificates" && <CertificatesPanel />}
-      {kind === "contact"      && <ContactPanel />}
+      {kind === "contact" && <ContactPanel />}
       {kind === "testimonials" && <TestimonialsPanel />}
-      {kind === "neofetch"     && <NeofetchPanel />}
-      {kind === "terminal"     && <Terminal onClose={onClose} />}
-      {kind === "easteregg"    && <EasterEggTerminal />}
+      {kind === "neofetch" && <NeofetchPanel />}
+      {kind === "terminal" && <Terminal onClose={onClose} onOpenPanel={onOpenPanel} />}
+      {kind === "easteregg" && <EasterEggTerminal />}
     </Suspense>
+  );
+}
+
+function WelcomeCue({ onDismiss }: { onDismiss: () => void }) {
+  const prefersReducedMotion = useReducedMotion();
+
+  return (
+    <motion.aside
+      aria-live="polite"
+      initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
+      transition={{ duration: prefersReducedMotion ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }}
+      className="pointer-events-auto w-[min(19rem,calc(100vw-2rem))] rounded-lg border border-emerald-300/30 bg-black/80 p-3 font-mono text-xs text-emerald-50 shadow-[0_12px_36px_rgba(0,0,0,0.5)] backdrop-blur-md"
+    >
+      <div className="flex items-start gap-3">
+        <div className="min-w-0 flex-1">
+          <p className="text-[10px] tracking-[0.18em] text-emerald-300/75 uppercase">
+            visitor@portfolio:~$
+          </p>
+          <p className="mt-1.5 leading-relaxed text-white/90">
+            <span className="font-semibold text-emerald-200">{data.onboarding.title}</span>{" "}
+            {data.onboarding.message}
+          </p>
+          <p className="mt-1.5 text-[10px] leading-relaxed text-white/50">
+            {data.onboarding.discoveryHint}
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={onDismiss}
+          aria-label="Dismiss welcome guide"
+          className="grid h-7 w-7 shrink-0 place-items-center rounded-md text-white/45 transition hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
+        >
+          <X className="h-3.5 w-3.5" aria-hidden="true" />
+        </button>
+      </div>
+      <button
+        type="button"
+        onClick={onDismiss}
+        className="mt-3 rounded-md border border-white/10 px-2 py-1 text-[10px] text-white/65 transition hover:border-emerald-300/35 hover:bg-emerald-300/10 hover:text-emerald-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
+      >
+        {data.onboarding.dismissLabel}
+      </button>
+    </motion.aside>
   );
 }
 
@@ -144,6 +225,7 @@ function Room() {
   const [debug, setDebug] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [showWelcomeCue, setShowWelcomeCue] = useState(false);
 
   // Prefetch all panel chunks during idle time once the room has painted
   usePrefetchPanels(!isLoading);
@@ -164,7 +246,30 @@ function Room() {
     img.onerror = () => setIsLoading(false);
   }, [isMobile]);
 
+  useEffect(() => {
+    if (isLoading) return;
+
+    const timer = window.setTimeout(() => {
+      try {
+        setShowWelcomeCue(window.localStorage.getItem(ONBOARDING_STORAGE_KEY) !== "true");
+      } catch {
+        setShowWelcomeCue(true);
+      }
+    }, 450);
+
+    return () => window.clearTimeout(timer);
+  }, [isLoading]);
+
   const close = useCallback(() => setActive(null), []);
+
+  const completeWelcomeCue = useCallback(() => {
+    setShowWelcomeCue(false);
+    try {
+      window.localStorage.setItem(ONBOARDING_STORAGE_KEY, "true");
+    } catch {
+      // The guide still closes when storage is unavailable.
+    }
+  }, []);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -211,7 +316,10 @@ function Room() {
             backgroundSize: "100% 100%",
             transformOrigin: `${origin.x}% ${origin.y}%`,
           }}
-          animate={{ scale: active ? 1.7 : 1, filter: active ? "blur(3px) brightness(0.6)" : "blur(0px) brightness(1)" }}
+          animate={{
+            scale: active ? 1.7 : 1,
+            filter: active ? "blur(3px) brightness(0.6)" : "blur(0px) brightness(1)",
+          }}
           transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="absolute inset-0">
@@ -221,15 +329,25 @@ function Room() {
                 label={h.label}
                 box={isMobile ? h.mobile : h.desktop}
                 debug={debug}
+                isGuided={showWelcomeCue && h.id === data.onboarding.targetId}
                 onSelect={(center) => {
                   setOrigin(center);
                   setActive(h.kind);
+                  if (h.id === data.onboarding.targetId) completeWelcomeCue();
                 }}
               />
             ))}
           </div>
         </motion.div>
       </div>
+
+      <AnimatePresence>
+        {showWelcomeCue && !active && !isLoading ? (
+          <div className="pointer-events-none fixed right-4 top-4 z-20 sm:right-6 sm:top-6">
+            <WelcomeCue onDismiss={completeWelcomeCue} />
+          </div>
+        ) : null}
+      </AnimatePresence>
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-3 p-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:p-6">
         <div className="justify-self-start flex flex-col min-w-0 px-4 py-3">
@@ -238,22 +356,44 @@ function Room() {
           </h1>
           <div className="mt-2 flex w-full items-center justify-between pointer-events-auto">
             {data.profile.github && data.profile.github !== "#" && (
-              <a href={data.profile.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="flex h-8 w-8 items-center justify-center text-white/70 transition-all duration-200 hover:scale-110 hover:text-emerald-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+              <a
+                href={data.profile.github}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="GitHub"
+                className="flex h-8 w-8 items-center justify-center text-white/70 transition-all duration-200 hover:scale-110 hover:text-emerald-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+              >
                 <Github className="h-5 w-5" />
               </a>
             )}
             {data.profile.linkedin && data.profile.linkedin !== "#" && (
-              <a href={data.profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="flex h-8 w-8 items-center justify-center text-white/70 transition-all duration-200 hover:scale-110 hover:text-emerald-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+              <a
+                href={data.profile.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LinkedIn"
+                className="flex h-8 w-8 items-center justify-center text-white/70 transition-all duration-200 hover:scale-110 hover:text-emerald-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+              >
                 <Linkedin className="h-5 w-5" />
               </a>
             )}
             {data.profile.email && data.profile.email !== "#" && (
-              <a href={`mailto:${data.profile.email}`} aria-label="Email" className="flex h-8 w-8 items-center justify-center text-white/70 transition-all duration-200 hover:scale-110 hover:text-emerald-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+              <a
+                href={`mailto:${data.profile.email}`}
+                aria-label="Email"
+                className="flex h-8 w-8 items-center justify-center text-white/70 transition-all duration-200 hover:scale-110 hover:text-emerald-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+              >
                 <Mail className="h-5 w-5" />
               </a>
             )}
             {data.profile.whatsapp && data.profile.whatsapp !== "#" && (
-              <a href={`https://wa.me/${data.profile.whatsapp.replace(/[^0-9]/g, "")}`} aria-label="Whatsapp" target="_blank" rel="noreferrer" className="flex h-8 w-8 items-center justify-center text-white/70 transition-all duration-200 hover:scale-110 hover:text-emerald-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+              <a
+                href={`https://wa.me/${data.profile.whatsapp.replace(/[^0-9]/g, "")}`}
+                aria-label="Whatsapp"
+                target="_blank"
+                rel="noreferrer"
+                className="flex h-8 w-8 items-center justify-center text-white/70 transition-all duration-200 hover:scale-110 hover:text-emerald-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+              >
                 <WhatsappIcon className="h-5 w-5" />
               </a>
             )}
@@ -289,7 +429,7 @@ function Room() {
               size={info.size}
               onClose={close}
             >
-              <Panel kind={active} onClose={close} />
+              <Panel kind={active} onClose={close} onOpenPanel={(k) => setActive(k)} />
             </GlassModal>
           </motion.div>
         ) : null}
