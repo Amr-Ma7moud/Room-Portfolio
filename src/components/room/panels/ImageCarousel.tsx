@@ -75,9 +75,7 @@ export function ImageCarousel({ imageDir }: Props) {
           className="absolute inset-0"
         >
           {/* Blur placeholder shown until the <img> fires onLoad */}
-          {!loaded[idx] && (
-            <div className="absolute inset-0 animate-pulse bg-white/5" />
-          )}
+          {!loaded[idx] && <div className="absolute inset-0 animate-pulse bg-white/5" />}
           <img
             src={images[idx]}
             alt={`Project screenshot ${idx + 1}`}
@@ -93,9 +91,7 @@ export function ImageCarousel({ imageDir }: Props) {
       </AnimatePresence>
 
       {/* Preload the next image silently so the transition feels instant */}
-      {images[idx + 1] && (
-        <link rel="preload" as="image" href={images[idx + 1]} />
-      )}
+      {images[idx + 1] && <link rel="preload" as="image" href={images[idx + 1]} />}
 
       {images.length > 1 && (
         <>
@@ -122,9 +118,7 @@ export function ImageCarousel({ imageDir }: Props) {
                 onClick={() => setIdx(i)}
                 aria-label={`Go to image ${i + 1}`}
                 className={`h-1.5 rounded-full transition-all ${
-                  i === idx
-                    ? "w-4 bg-emerald-400"
-                    : "w-1.5 bg-white/30 hover:bg-white/50"
+                  i === idx ? "w-4 bg-emerald-400" : "w-1.5 bg-white/30 hover:bg-white/50"
                 }`}
               />
             ))}

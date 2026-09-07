@@ -25,11 +25,16 @@ export function NeofetchPanel() {
             </p>
           ))}
           <div className="mt-3 flex gap-1">
-            {["bg-red-400", "bg-amber-300", "bg-emerald-400", "bg-sky-400", "bg-violet-400", "bg-white/70"].map(
-              (c) => (
-                <span key={c} className={`h-3 w-6 rounded-sm ${c}`} />
-              ),
-            )}
+            {[
+              "bg-red-400",
+              "bg-amber-300",
+              "bg-emerald-400",
+              "bg-sky-400",
+              "bg-violet-400",
+              "bg-white/70",
+            ].map((c) => (
+              <span key={c} className={`h-3 w-6 rounded-sm ${c}`} />
+            ))}
           </div>
         </div>
       </div>

@@ -35,9 +35,7 @@ export function GlassModal({ title, subtitle, icon: Icon, onClose, children, siz
           </span>
           <div className="min-w-0">
             <h2 className="truncate font-mono text-sm tracking-[0.18em] uppercase">{title}</h2>
-            {subtitle ? (
-              <p className="truncate text-xs text-white/50">{subtitle}</p>
-            ) : null}
+            {subtitle ? <p className="truncate text-xs text-white/50">{subtitle}</p> : null}
           </div>
         </div>
         <button

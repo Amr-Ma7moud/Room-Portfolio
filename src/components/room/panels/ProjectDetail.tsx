@@ -4,7 +4,7 @@ import { statusConfig, type StatusKey } from "./shared";
 import { ImageCarousel } from "./ImageCarousel";
 import data from "@/data/portfolio.json";
 
-type Project = typeof data.projects[number] & {
+type Project = (typeof data.projects)[number] & {
   role?: string;
   year?: string;
   highlights?: string[];

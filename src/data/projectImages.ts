@@ -14,7 +14,7 @@ type ImageModule = { default: string };
 
 const imageModules = import.meta.glob<ImageModule>(
   "../assets/projects/**/*.{jpg,jpeg,png,webp,avif}",
-  { eager: false }
+  { eager: false },
 );
 
 /**
@@ -23,7 +23,7 @@ const imageModules = import.meta.glob<ImageModule>(
  */
 export async function getProjectImages(imageDir: string): Promise<string[]> {
   const matched = Object.entries(imageModules).filter(([path]) =>
-    path.includes(`/projects/${imageDir}/`)
+    path.includes(`/projects/${imageDir}/`),
   );
 
   // Sort by filename for deterministic order
@@ -33,7 +33,7 @@ export async function getProjectImages(imageDir: string): Promise<string[]> {
     matched.map(async ([, loader]) => {
       const mod = await loader();
       return mod.default;
-    })
+    }),
   );
 
   return urls;

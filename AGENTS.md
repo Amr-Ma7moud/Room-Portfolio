@@ -4,18 +4,18 @@ This file provides project-specific rules, guidelines, and behavioral constraint
 
 ## Tech Stack Overview
 
-| Layer | Tool |
-|---|---|
-| Framework | React 19 with TanStack Start |
-| Routing | `@tanstack/react-router` (file-based) |
-| Data Fetching & State | `@tanstack/react-query` |
-| Styling | Tailwind CSS 4.x |
-| UI Components | Radix UI primitives (shadcn-like structure) |
-| Forms & Validation | `react-hook-form` + `@hookform/resolvers/zod` |
-| Icons | `lucide-react` |
-| Animations | `framer-motion` |
-| Build Tool | Vite via `@lovable.dev/vite-tanstack-config` |
-| Language | TypeScript (strict) |
+| Layer                 | Tool                                          |
+| --------------------- | --------------------------------------------- |
+| Framework             | React 19 with TanStack Start                  |
+| Routing               | `@tanstack/react-router` (file-based)         |
+| Data Fetching & State | `@tanstack/react-query`                       |
+| Styling               | Tailwind CSS 4.x                              |
+| UI Components         | Radix UI primitives (shadcn-like structure)   |
+| Forms & Validation    | `react-hook-form` + `@hookform/resolvers/zod` |
+| Icons                 | `lucide-react`                                |
+| Animations            | `framer-motion`                               |
+| Build Tool            | Vite via `@lovable.dev/vite-tanstack-config`  |
+| Language              | TypeScript (strict)                           |
 
 ---
 
@@ -90,8 +90,11 @@ These patterns are intentional — do not revert them.
 1. **Background images are preloaded** via `<link rel="preload">` in the route `head()`. Do not remove these or move the images back to `public/`.
 
 2. **All panels are lazy-loaded** with `React.lazy` in `index.tsx`. Do not convert them back to static imports. When adding a new panel, lazy-load it the same way:
+
    ```ts
-   const MyPanel = lazy(() => import("@/components/room/panels/MyPanel").then(m => ({ default: m.MyPanel })));
+   const MyPanel = lazy(() =>
+     import("@/components/room/panels/MyPanel").then((m) => ({ default: m.MyPanel })),
+   );
    ```
 
 3. **`usePrefetchPanels`** fires `requestIdleCallback` after the room loads to warm the module cache. Add any new lazy-loaded panel to its import list.
