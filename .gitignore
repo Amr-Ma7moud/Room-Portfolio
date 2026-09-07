@@ -30,3 +30,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# LaTeX intermediate files (tectonic)
+src/cv/*.log
+src/cv/*.aux
+src/cv/*.out
+src/cv/*.toc
+src/cv/*.fls
+src/cv/*.fdb_latexmk
+src/cv/_minted*/
