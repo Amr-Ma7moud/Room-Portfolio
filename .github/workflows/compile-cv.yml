@@ -28,7 +28,7 @@ jobs:
       - name: Detect if PDF is in this commit
         id: detect
         run: |
-          if git diff-tree --no-commit-id -r --name-only ${{ github.sha }} | grep -q "AmrMahmoudCV.pdf"; then
+          if git diff-tree --no-commit-id -r --name-only ${{ github.sha }} | grep -q "public/AmrMahmoudCV.pdf"; then
             echo "skip=true" >> $GITHUB_OUTPUT
             echo "PDF found in commit — skipping compile."
           else

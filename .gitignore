@@ -40,3 +40,4 @@ src/cv/*.fls
 src/cv/*.fdb_latexmk
 src/cv/_minted*/
 src/cv/*.synctex.gz
+src/cv/*.pdf
