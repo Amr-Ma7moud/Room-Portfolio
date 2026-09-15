@@ -75,6 +75,7 @@
     "github": "https://github.com/amr-ma7moud",
     "linkedin": "https://linkedin.com/in/amr-mahmoud-",
     "email": "amr.mahmoud.dev05@gmail.com",
+    "sendToEmail": "amrmahmouddev05@gmail.com",
     "whatsapp": "+201033050549",
     "cvUrl": "/AmrMahmoudCV.pdf"
   },
@@ -441,7 +442,7 @@
     "lines": [
       ["OS", "Arch Linux x86_64"],
       ["Host", "HP Pro Book 445R G7"],
-      ["Kernel", "6.9.6-arch1-1"],
+      ["Kernel", "7.1.8-arch1-3"],
       ["DE", "KDE Plasma"],
       ["IDE", "NVIM"],
       ["Terminal", "tmux / kitty"],
@@ -488,13 +489,12 @@
       "man",
       "ll"
     ],
-    "banner": "\n    ___    __  _________ \n   /   |  /  |/  / __ \\\n  / /| | / /|_/ / /_/ /\n / ___ |/ /  / / _, _/ \n/_/  |_/_/  /_/_/ |_|  \n",
+    "banner": "\n  ___  ___  _________ \n / _ \\ |  \\/  || ___ \\\n/ /_\\ \\| .  . || |_/ /\n|  _  || |\\/| ||    / \n| | | || |  | || |\\ \\ \n\\_| |_/\\_|  |_/\\_| \\_|\n",
     "fortunes": [
       "A SQL query goes into a bar, walks up to two tables and asks... 'Can I join you?'",
       "There are 10 types of people in the world: those who understand binary, and those who don't.",
       "I would love to change the world, but they won't give me the source code.",
-      "My code works, I have no idea why.",
-      "Software is like sex: it's better when it's free. — Linus Torvalds"
+      "My code works, I have no idea why."
     ],
     "uptimes": [
       "up 42 days, 13:37,  1 user,  load average: 0.00, 0.01, 0.05",

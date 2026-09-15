@@ -8,13 +8,12 @@ export function NeofetchPanel() {
         <TerminalIcon className="h-3.5 w-3.5" /> {data.profile.handle}
       </div>
       <div className="mt-3 grid gap-4 sm:grid-cols-[auto_minmax(0,1fr)]">
-        <pre className="hidden text-emerald-400/80 sm:block">{`      /\\
-     /  \\
-    /\\   \\
-   /      \\
-  /   ,,   \\
- /   |  |   \\
-/_-''    ''-_\\`}</pre>
+        <pre className="hidden text-emerald-400/80 sm:block">{`  ___  ___  _________ 
+ / _ \\ |  \\/  || ___ \\
+/ /_\\ \\| .  . || |_/ /
+|  _  || |\\/| ||    / 
+| | | || |  | || |\\ \\ 
+\\_| |_/\\_|  |_/\\_| \\_|`}</pre>
         <div className="min-w-0 space-y-0.5">
           <p className="text-emerald-300">{data.profile.handle}</p>
           <p className="text-white/30">-----------------</p>
