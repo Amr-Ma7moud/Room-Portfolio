@@ -428,6 +428,28 @@ function Room() {
               icon={info.icon}
               size={info.size}
               onClose={close}
+              headerControls={
+                active === "contact" && (
+                  <div className="flex items-center gap-1.5 mr-2">
+                    {[
+                      { href: data.profile.github, label: "GitHub", Icon: Github },
+                      { href: data.profile.linkedin, label: "LinkedIn", Icon: Linkedin },
+                      { href: `mailto:${data.profile.email}`, label: "Email", Icon: Mail },
+                    ].map(({ href, label, Icon }) => (
+                      <a
+                        key={label}
+                        href={href}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={label}
+                        className="grid h-8 w-8 place-items-center rounded-lg bg-white/5 text-white/70 transition hover:bg-white/15 hover:text-white"
+                      >
+                        <Icon className="h-4 w-4" />
+                      </a>
+                    ))}
+                  </div>
+                )
+              }
             >
               <Panel kind={active} onClose={close} onOpenPanel={(k) => setActive(k)} />
             </GlassModal>

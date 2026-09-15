@@ -10,6 +10,7 @@ type Props = {
   onClose: () => void;
   children: ReactNode;
   size?: "sm" | "md" | "lg";
+  headerControls?: ReactNode;
 };
 
 const sizes = {
@@ -18,7 +19,7 @@ const sizes = {
   lg: "max-w-4xl",
 };
 
-export function GlassModal({ title, subtitle, icon: Icon, onClose, children, size = "md" }: Props) {
+export function GlassModal({ title, subtitle, icon: Icon, onClose, children, size = "md", headerControls }: Props) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.94, y: 16 }}
@@ -38,14 +39,17 @@ export function GlassModal({ title, subtitle, icon: Icon, onClose, children, siz
             {subtitle ? <p className="truncate text-xs text-white/50">{subtitle}</p> : null}
           </div>
         </div>
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Close"
-          className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-white/10 bg-white/5 text-white/70 transition hover:bg-white/15 hover:text-white"
-        >
-          <X className="h-4 w-4" />
-        </button>
+        <div className="flex items-center gap-2 shrink-0">
+          {headerControls}
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+            className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-white/10 bg-white/5 text-white/70 transition hover:bg-white/15 hover:text-white"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
       </header>
       <div className="max-h-[calc(85vh-73px)] overflow-y-auto p-5">{children}</div>
     </motion.div>
