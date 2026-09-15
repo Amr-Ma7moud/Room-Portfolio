@@ -5,3 +5,4 @@ export { CertificatesPanel } from "./CertificatesPanel";
 export { ContactPanel } from "./ContactPanel";
 export { TestimonialsPanel } from "./TestimonialsPanel";
 export { NeofetchPanel } from "./NeofetchPanel";
+export { AboutPanel } from "./AboutPanel";

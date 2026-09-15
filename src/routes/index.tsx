@@ -16,6 +16,7 @@ import {
   Cpu,
   Terminal as TerminalIcon,
   Sparkles,
+  User,
   X,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -28,6 +29,9 @@ import { GlassModal } from "@/components/room/GlassModal";
 import { WhatsappIcon } from "@/components/icons/WhatsappIcon";
 
 // ── Lazy-load every panel — none of these are needed on initial paint ──
+const AboutPanel = lazy(() =>
+  import("@/components/room/panels/AboutPanel").then((m) => ({ default: m.AboutPanel })),
+);
 const ResumePanel = lazy(() =>
   import("@/components/room/panels/ResumePanel").then((m) => ({ default: m.ResumePanel })),
 );
@@ -71,6 +75,7 @@ const iconMap: Record<string, LucideIcon> = {
   Cpu,
   Terminal: TerminalIcon,
   Sparkles,
+  User,
 };
 
 export const Route = createFileRoute("/")({
@@ -131,6 +136,7 @@ function Panel({
 }) {
   return (
     <Suspense fallback={<PanelFallback />}>
+      {kind === "about" && <AboutPanel />}
       {kind === "resume" && <ResumePanel />}
       {kind === "skills" && <SkillsPanel />}
       {kind === "projects" && <ProjectsPanel />}
@@ -197,6 +203,7 @@ function usePrefetchPanels(enabled: boolean) {
     if (!enabled) return;
 
     const prefetch = () => {
+      import("@/components/room/panels/AboutPanel");
       import("@/components/room/panels/ResumePanel");
       import("@/components/room/panels/SkillsPanel");
       import("@/components/room/panels/ProjectsPanel");

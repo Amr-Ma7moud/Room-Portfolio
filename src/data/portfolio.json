@@ -6,6 +6,12 @@
     "ogDescription": "Explore a backend engineer's portfolio by clicking around a dark, aesthetic coding room — complete with working terminals."
   },
   "panelMeta": {
+    "about": {
+      "title": "About Me",
+      "subtitle": "who am i",
+      "icon": "User",
+      "size": "md"
+    },
     "resume": {
       "title": "Resume",
       "subtitle": "the full document",
@@ -80,7 +86,38 @@
     "whatsapp": "+201033050549",
     "cvUrl": "/AmrMahmoudCV.pdf"
   },
+  "about": {
+    "avatar": "me.webp",
+    "bio": "Back-End Engineer and Computer Science student with experience building RESTful APIs, authentication systems, and database-driven backends. I'm passionate about system design, performance optimization, and building scalable solutions.",
+    "interests": [
+      {
+        "label": "Backend Architecture",
+        "icon": "Server"
+      },
+      {
+        "label": "DevOps",
+        "icon": "Settings"
+      }
+    ]
+  },
   "hitboxes": [
+    {
+      "id": "about",
+      "label": "About Me",
+      "kind": "about",
+      "desktop": {
+        "left": 71.5,
+        "top": 25.0,
+        "width": 10.0,
+        "height": 14.0
+      },
+      "mobile": {
+        "left": 80.6,
+        "top": 20.0,
+        "width": 12.9,
+        "height": 14.0
+      }
+    },
     {
       "id": "resume",
       "label": "Resume / CV",
