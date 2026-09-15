@@ -413,16 +413,29 @@
   ],
   "certificates": [
     {
-      "title": "DEPI Completion",
+      "title": "DEPI Android Development",
       "issuer": "Digital Egypt Pioneers Initiative",
-      "year": "2025",
+      "date": "2025",
+      "image": "/certificates/depi.jpg",
+      "skills": ["Android", "Kotlin", "System Design","Java"],
       "detail": "Completed the Android development track with a graduation project."
     },
     {
-      "title": "Backend Engineering Track",
-      "issuer": "Self-directed",
-      "year": "2024",
-      "detail": "Distributed systems, message queues, and containerized deployments."
+      "title": "IT Field Intern (E-JUST ITC)",
+      "issuer": "E-JUST",
+      "date": "2025",
+      "image": "/certificates/backend.jpg",
+      "skills": [
+        "Web Development",
+        "Backend Development",
+        "Database Management",
+        "Networking",
+        "Laravel",
+        "React",
+        "Paymob",
+        "MySQL"
+        ],
+      "detail": "Developed backend solutions for university website and course catalogue using Laravel. Developed Student Affairs portal using Laravel, React and Paymob. Gained practical understanding of networking fundamentals."
     }
   ],
   "testimonials": [

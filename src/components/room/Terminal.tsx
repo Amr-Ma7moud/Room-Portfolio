@@ -160,7 +160,7 @@ export function Terminal({
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const WELCOME_MSG = `${data.profile.name}'s shell — type 'help' to get started.`;
+  const WELCOME_MSG = `${data.profile.name}'s shell - type 'help' to get started.`;
   const { displayedText, isTyping } = useTypewriter(WELCOME_MSG, 15);
 
   useEffect(() => {
