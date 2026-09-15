@@ -4,8 +4,7 @@ import data from "@/data/portfolio.json";
 export function ResumePanel() {
   return (
     <div className="flex flex-col gap-4 w-full">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <p className="text-sm text-white/70 max-w-xl leading-relaxed">{data.resume.summary}</p>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-end gap-4">
         <div className="flex gap-2 shrink-0">
           <a
             href={data.profile.cvUrl}
