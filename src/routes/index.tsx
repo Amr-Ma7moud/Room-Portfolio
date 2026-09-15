@@ -18,6 +18,8 @@ import {
   Sparkles,
   User,
   X,
+  Map as MapIcon,
+  HelpCircle,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -27,6 +29,9 @@ import mobileBg from "@/assets/mobileView.webp";
 import { Hitbox } from "@/components/room/Hitbox";
 import { GlassModal } from "@/components/room/GlassModal";
 import { WhatsappIcon } from "@/components/icons/WhatsappIcon";
+import { NavDock } from "@/components/room/NavDock";
+import { MapOverlay } from "@/components/room/MapOverlay";
+import { SpotlightTour } from "@/components/room/SpotlightTour";
 
 // ── Lazy-load every panel — none of these are needed on initial paint ──
 const AboutPanel = lazy(() =>
@@ -228,6 +233,34 @@ function usePrefetchPanels(enabled: boolean) {
   }, [enabled]);
 }
 
+function useIdle(timeoutMs: number) {
+  const [isIdle, setIsIdle] = useState(false);
+
+  useEffect(() => {
+    let timeout: number;
+    const reset = () => {
+      setIsIdle(false);
+      window.clearTimeout(timeout);
+      timeout = window.setTimeout(() => setIsIdle(true), timeoutMs);
+    };
+
+    window.addEventListener("mousemove", reset);
+    window.addEventListener("pointerdown", reset);
+    window.addEventListener("keydown", reset);
+
+    reset();
+
+    return () => {
+      window.removeEventListener("mousemove", reset);
+      window.removeEventListener("pointerdown", reset);
+      window.removeEventListener("keydown", reset);
+      window.clearTimeout(timeout);
+    };
+  }, [timeoutMs]);
+
+  return isIdle;
+}
+
 function Room() {
   const [active, setActive] = useState<Kind | null>(null);
   const [origin, setOrigin] = useState({ x: 50, y: 50 });
@@ -235,6 +268,9 @@ function Room() {
   const [isMobile, setIsMobile] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [showWelcomeCue, setShowWelcomeCue] = useState(false);
+  const [showTour, setShowTour] = useState(false);
+  const [showMap, setShowMap] = useState(false);
+  const isIdle = useIdle(3000);
 
   // Prefetch all panel chunks during idle time once the room has painted
   usePrefetchPanels(!isLoading);
@@ -273,6 +309,7 @@ function Room() {
 
   const completeWelcomeCue = useCallback(() => {
     setShowWelcomeCue(false);
+    setShowTour(true);
     try {
       window.localStorage.setItem(ONBOARDING_STORAGE_KEY, "true");
     } catch {
@@ -282,7 +319,10 @@ function Room() {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
+      if (e.key === "Escape") {
+        close();
+        setShowMap(false);
+      }
       if (e.key.toLowerCase() === "d" && e.shiftKey && !active) setDebug((v) => !v);
     };
     window.addEventListener("keydown", onKey);
@@ -340,7 +380,9 @@ function Room() {
                   label={h.label}
                   box={isMobile ? h.mobile : h.desktop}
                   debug={debug}
+                  icon={meta[h.kind]?.icon as LucideIcon}
                   isGuided={showWelcomeCue && h.id === data.onboarding.targetId}
+                  isIdle={isIdle && !active && !showWelcomeCue && !showTour && !showMap}
                   onSelect={(center) => {
                     setOrigin(center);
                     setActive(h.kind);
@@ -350,6 +392,23 @@ function Room() {
               );
             })}
           </div>
+
+          <AnimatePresence>
+            {showTour && !active && (
+              <SpotlightTour
+                items={data.hitboxes
+                  .filter((h) => h.kind !== "easteregg" && (h.kind !== "testimonials" || data.panelMeta.testimonials.enabled))
+                  .map((h) => ({
+                    id: h.id,
+                    label: h.label,
+                    description: (h as any).tourDescription,
+                    box: isMobile ? h.mobile : h.desktop,
+                    icon: meta[h.kind]?.icon as LucideIcon,
+                  }))}
+                onComplete={() => setShowTour(false)}
+              />
+            )}
+          </AnimatePresence>
         </motion.div>
       </div>
 
@@ -421,7 +480,47 @@ function Room() {
             <Bug className="h-3.5 w-3.5" />
           </button>
         )}
+        <button
+          type="button"
+          onClick={() => setShowMap(true)}
+          aria-label="Open Directory"
+          className="pointer-events-auto grid h-8 w-8 shrink-0 place-items-center rounded-md border border-white/10 bg-black/40 text-white/70 backdrop-blur-md transition hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+        >
+          <HelpCircle className="h-4 w-4" />
+        </button>
       </div>
+
+      {!isLoading && !showTour && (
+        <NavDock
+          activeKind={active}
+          onSelect={setActive}
+          items={data.hitboxes
+            .filter((h) => h.kind !== "easteregg" && (h.kind !== "testimonials" || data.panelMeta.testimonials.enabled))
+            .map((h) => ({
+              kind: h.kind,
+              label: h.label,
+              description: (h as any).tourDescription,
+              icon: meta[h.kind]?.icon as LucideIcon,
+            }))}
+        />
+      )}
+
+      <AnimatePresence>
+        {showMap && (
+          <MapOverlay
+            onClose={() => setShowMap(false)}
+            onSelect={setActive}
+            items={data.hitboxes
+              .filter((h) => h.kind !== "easteregg" && (h.kind !== "testimonials" || data.panelMeta.testimonials.enabled))
+              .map((h) => ({
+                kind: h.kind,
+                label: h.label,
+                description: (h as any).tourDescription,
+                icon: meta[h.kind]?.icon as LucideIcon,
+              }))}
+          />
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {active && info ? (

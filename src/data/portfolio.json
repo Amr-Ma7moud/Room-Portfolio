@@ -105,6 +105,7 @@
       "id": "about",
       "label": "About Me",
       "kind": "about",
+      "tourDescription": "Learn about who I am and my background.",
       "desktop": {
         "left": 71.5,
         "top": 25.0,
@@ -122,6 +123,7 @@
       "id": "resume",
       "label": "Resume / CV",
       "kind": "resume",
+      "tourDescription": "Check out my professional experience and education.",
       "desktop": {
         "left": 21.4,
         "top": 25.8,
@@ -139,6 +141,7 @@
       "id": "skills",
       "label": "Skills",
       "kind": "skills",
+      "tourDescription": "Explore my technical toolbox and proficiencies.",
       "desktop": {
         "left": 36.9,
         "top": 24.4,
@@ -156,6 +159,7 @@
       "id": "projects",
       "label": "Projects",
       "kind": "projects",
+      "tourDescription": "Discover the applications and systems I've built.",
       "desktop": {
         "left": 33.5,
         "top": 41.4,
@@ -173,6 +177,7 @@
       "id": "certificates",
       "label": "Certificates",
       "kind": "certificates",
+      "tourDescription": "View my earned certifications and achievements.",
       "desktop": {
         "left": 71.5,
         "top": 40.5,
@@ -190,6 +195,7 @@
       "id": "contact",
       "label": "Contact",
       "kind": "contact",
+      "tourDescription": "Find ways to reach out and connect with me.",
       "desktop": {
         "left": 35.2,
         "top": 68.6,
@@ -207,6 +213,7 @@
       "id": "testimonials",
       "label": "Testimonials",
       "kind": "testimonials",
+      "tourDescription": "Read recommendations from people I've worked with.",
       "desktop": {
         "left": 74.5,
         "top": 70,
@@ -224,6 +231,7 @@
       "id": "neofetch",
       "label": "Neofetch",
       "kind": "neofetch",
+      "tourDescription": "A quick terminal-style overview of my system.",
       "desktop": {
         "left": 39.4,
         "top": 12.9,
@@ -241,6 +249,7 @@
       "id": "terminal",
       "label": "Terminal",
       "kind": "terminal",
+      "tourDescription": "Access the fully functional interactive command line.",
       "desktop": {
         "left": 73.5,
         "top": 56.6,

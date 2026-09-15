@@ -1,14 +1,18 @@
+import type { LucideIcon } from "lucide-react";
+
 export type Box = { left: number; top: number; width: number; height: number };
 
 type Props = {
   label: string;
   box: Box;
   debug: boolean;
+  icon?: LucideIcon;
   isGuided?: boolean;
+  isIdle?: boolean;
   onSelect: (center: { x: number; y: number }) => void;
 };
 
-export function Hitbox({ label, box, debug, isGuided = false, onSelect }: Props) {
+export function Hitbox({ label, box, debug, icon: Icon, isGuided = false, isIdle = false, onSelect }: Props) {
   return (
     <button
       type="button"
@@ -26,7 +30,9 @@ export function Hitbox({ label, box, debug, isGuided = false, onSelect }: Props)
           ? "border border-red-300 bg-red-500/50"
           : isGuided
             ? "bg-emerald-300/10 ring-1 ring-emerald-300/80 shadow-[0_0_28px_7px_rgba(110,231,183,0.35)] animate-pulse motion-reduce:animate-none"
-            : "bg-transparent hover:bg-white/10 hover:shadow-[0_0_40px_8px_rgba(255,255,255,0.12)] hover:ring-1 hover:ring-white/35"
+            : isIdle
+              ? "bg-emerald-300/5 animate-breathe"
+              : "bg-transparent hover:bg-emerald-300/10 hover:shadow-[0_0_40px_8px_rgba(110,231,183,0.25)] hover:ring-1 hover:ring-emerald-300/50"
       }`}
     >
       {debug ? (
@@ -34,9 +40,10 @@ export function Hitbox({ label, box, debug, isGuided = false, onSelect }: Props)
           {label}
         </span>
       ) : (
-        <span className="pointer-events-none absolute -top-8 left-1/2 z-10 -translate-x-1/2 rounded-md border border-white/15 bg-black/75 px-2 py-1 font-mono text-[10px] whitespace-nowrap text-white/90 opacity-0 shadow-lg backdrop-blur-sm transition group-hover:opacity-100 group-focus-visible:opacity-100">
-          {isGuided ? `Click to open ${label}` : label}
-        </span>
+        <div className="pointer-events-none absolute -top-12 left-1/2 z-10 -translate-x-1/2 flex items-center gap-2 rounded-full border border-white/15 bg-black/80 px-3 py-1.5 font-mono text-xs whitespace-nowrap text-white opacity-0 shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-md transition-all duration-300 group-hover:-translate-y-1 group-hover:opacity-100 group-focus-visible:-translate-y-1 group-focus-visible:opacity-100">
+          {Icon && <Icon className="h-3.5 w-3.5 text-emerald-300" />}
+          <span>{isGuided ? `Click to open ${label}` : label}</span>
+        </div>
       )}
     </button>
   );
