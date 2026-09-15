@@ -446,7 +446,8 @@ export function Terminal({
           break;
         }
         const normalizedArg = arg.toLowerCase().trim();
-        const panels = ["resume", "skills", "projects", "certificates", "contact", "testimonials", "neofetch"];
+        const panels = ["resume", "skills", "projects", "certificates", "contact", "testimonials", "neofetch"]
+          .filter(p => (data.panelMeta as any)[p]?.enabled !== false);
         let bestPanel = "";
         let bestDistPanel = 999;
         panels.forEach((p) => {

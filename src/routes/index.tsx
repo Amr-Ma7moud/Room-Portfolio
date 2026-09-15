@@ -202,7 +202,9 @@ function usePrefetchPanels(enabled: boolean) {
       import("@/components/room/panels/ProjectsPanel");
       import("@/components/room/panels/CertificatesPanel");
       import("@/components/room/panels/ContactPanel");
-      import("@/components/room/panels/TestimonialsPanel");
+      if (data.panelMeta.testimonials.enabled !== false) {
+        import("@/components/room/panels/TestimonialsPanel");
+      }
       import("@/components/room/panels/NeofetchPanel");
       import("@/components/room/Terminal");
       import("@/components/room/EasterEggTerminal");
@@ -323,20 +325,23 @@ function Room() {
           transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="absolute inset-0">
-            {data.hitboxes.map((h) => (
-              <Hitbox
-                key={h.id}
-                label={h.label}
-                box={isMobile ? h.mobile : h.desktop}
-                debug={debug}
-                isGuided={showWelcomeCue && h.id === data.onboarding.targetId}
-                onSelect={(center) => {
-                  setOrigin(center);
-                  setActive(h.kind);
-                  if (h.id === data.onboarding.targetId) completeWelcomeCue();
-                }}
-              />
-            ))}
+            {data.hitboxes.map((h) => {
+              if (h.kind === "testimonials" && !data.panelMeta.testimonials.enabled) return null;
+              return (
+                <Hitbox
+                  key={h.id}
+                  label={h.label}
+                  box={isMobile ? h.mobile : h.desktop}
+                  debug={debug}
+                  isGuided={showWelcomeCue && h.id === data.onboarding.targetId}
+                  onSelect={(center) => {
+                    setOrigin(center);
+                    setActive(h.kind);
+                    if (h.id === data.onboarding.targetId) completeWelcomeCue();
+                  }}
+                />
+              );
+            })}
           </div>
         </motion.div>
       </div>

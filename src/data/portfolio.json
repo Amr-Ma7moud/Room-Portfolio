@@ -40,7 +40,8 @@
       "title": "Testimonials",
       "subtitle": "what people say",
       "icon": "MessageSquareQuote",
-      "size": "md"
+      "size": "md",
+      "enabled": false
     },
     "neofetch": {
       "title": "Neofetch",
