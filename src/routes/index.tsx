@@ -109,7 +109,7 @@ export const Route = createFileRoute("/")({
 
 type Kind = (typeof data.hitboxes)[number]["kind"];
 
-const ONBOARDING_STORAGE_KEY = "portfolio-room-onboarding-complete";
+const TOUR_STORAGE_KEY = "portfolio-room-tour-complete";
 
 const meta = Object.fromEntries(
   Object.entries(data.panelMeta).map(([key, val]) => [
@@ -152,51 +152,6 @@ function Panel({
       {kind === "terminal" && <Terminal onClose={onClose} onOpenPanel={onOpenPanel} />}
       {kind === "easteregg" && <EasterEggTerminal />}
     </Suspense>
-  );
-}
-
-function WelcomeCue({ onDismiss }: { onDismiss: () => void }) {
-  const prefersReducedMotion = useReducedMotion();
-
-  return (
-    <motion.aside
-      aria-live="polite"
-      initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
-      transition={{ duration: prefersReducedMotion ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }}
-      className="pointer-events-auto w-[min(19rem,calc(100vw-2rem))] rounded-lg border border-emerald-300/30 bg-black/80 p-3 font-mono text-xs text-emerald-50 shadow-[0_12px_36px_rgba(0,0,0,0.5)] backdrop-blur-md"
-    >
-      <div className="flex items-start gap-3">
-        <div className="min-w-0 flex-1">
-          <p className="text-[10px] tracking-[0.18em] text-emerald-300/75 uppercase">
-            visitor@portfolio:~$
-          </p>
-          <p className="mt-1.5 leading-relaxed text-white/90">
-            <span className="font-semibold text-emerald-200">{data.onboarding.title}</span>{" "}
-            {data.onboarding.message}
-          </p>
-          <p className="mt-1.5 text-[10px] leading-relaxed text-white/50">
-            {data.onboarding.discoveryHint}
-          </p>
-        </div>
-        <button
-          type="button"
-          onClick={onDismiss}
-          aria-label="Dismiss welcome guide"
-          className="grid h-7 w-7 shrink-0 place-items-center rounded-md text-white/45 transition hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
-        >
-          <X className="h-3.5 w-3.5" aria-hidden="true" />
-        </button>
-      </div>
-      <button
-        type="button"
-        onClick={onDismiss}
-        className="mt-3 rounded-md border border-white/10 px-2 py-1 text-[10px] text-white/65 transition hover:border-emerald-300/35 hover:bg-emerald-300/10 hover:text-emerald-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
-      >
-        {data.onboarding.dismissLabel}
-      </button>
-    </motion.aside>
   );
 }
 
@@ -267,10 +222,10 @@ function Room() {
   const [debug, setDebug] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [showWelcomeCue, setShowWelcomeCue] = useState(false);
   const [showTour, setShowTour] = useState(false);
+  const [hasShownTour, setHasShownTour] = useState(true);
   const [showMap, setShowMap] = useState(false);
-  const isIdle = useIdle(3000);
+  const isIdle = useIdle(5000);
 
   // Prefetch all panel chunks during idle time once the room has painted
   usePrefetchPanels(!isLoading);
@@ -293,29 +248,24 @@ function Room() {
 
   useEffect(() => {
     if (isLoading) return;
-
-    const timer = window.setTimeout(() => {
-      try {
-        setShowWelcomeCue(window.localStorage.getItem(ONBOARDING_STORAGE_KEY) !== "true");
-      } catch {
-        setShowWelcomeCue(true);
-      }
-    }, 450);
-
-    return () => window.clearTimeout(timer);
+    try {
+      setHasShownTour(window.localStorage.getItem(TOUR_STORAGE_KEY) === "true");
+    } catch {
+      setHasShownTour(true);
+    }
   }, [isLoading]);
 
-  const close = useCallback(() => setActive(null), []);
-
-  const completeWelcomeCue = useCallback(() => {
-    setShowWelcomeCue(false);
-    setShowTour(true);
-    try {
-      window.localStorage.setItem(ONBOARDING_STORAGE_KEY, "true");
-    } catch {
-      // The guide still closes when storage is unavailable.
+  useEffect(() => {
+    if (!isLoading && isIdle && !hasShownTour && !active && !showMap && !showTour) {
+      setShowTour(true);
+      setHasShownTour(true);
+      try {
+        window.localStorage.setItem(TOUR_STORAGE_KEY, "true");
+      } catch {}
     }
-  }, []);
+  }, [isLoading, isIdle, hasShownTour, active, showMap, showTour]);
+
+  const close = useCallback(() => setActive(null), []);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -323,7 +273,7 @@ function Room() {
         close();
         setShowMap(false);
       }
-      if (e.key.toLowerCase() === "d" && e.shiftKey && !active) setDebug((v) => !v);
+      if (import.meta.env.DEV && e.key.toLowerCase() === "d" && e.ctrlKey && e.shiftKey && !active) setDebug((v) => !v);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -381,12 +331,10 @@ function Room() {
                   box={isMobile ? h.mobile : h.desktop}
                   debug={debug}
                   icon={meta[h.kind]?.icon as LucideIcon}
-                  isGuided={showWelcomeCue && h.id === data.onboarding.targetId}
-                  isIdle={isIdle && !active && !showWelcomeCue && !showTour && !showMap}
+                  isIdle={isIdle && !active && !showTour && !showMap}
                   onSelect={(center) => {
                     setOrigin(center);
                     setActive(h.kind);
-                    if (h.id === data.onboarding.targetId) completeWelcomeCue();
                   }}
                 />
               );
@@ -411,14 +359,6 @@ function Room() {
           </AnimatePresence>
         </motion.div>
       </div>
-
-      <AnimatePresence>
-        {showWelcomeCue && !active && !isLoading ? (
-          <div className="pointer-events-none fixed right-4 top-4 z-20 sm:right-6 sm:top-6">
-            <WelcomeCue onDismiss={completeWelcomeCue} />
-          </div>
-        ) : null}
-      </AnimatePresence>
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-3 p-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:p-6">
         <div className="justify-self-start flex flex-col min-w-0 px-4 py-3">

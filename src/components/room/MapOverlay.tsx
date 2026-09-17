@@ -77,10 +77,6 @@ export function MapOverlay({ items, onSelect, onClose }: Props) {
               <span>Close panels/map</span>
               <kbd className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5">ESC</kbd>
             </div>
-            <div className="flex justify-between items-center">
-              <span>Toggle hitboxes</span>
-              <kbd className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5">Shift + D</kbd>
-            </div>
           </div>
         </div>
       </motion.div>
