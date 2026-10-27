@@ -523,6 +523,40 @@
     "secret": "You found the root shell. The hidden project is called `nullptr` — a toy x86 kernel written for fun.",
     "secretUrl": "#"
   },
+  "qrCodes": [
+    {
+      "id": "cyberpunk_neon",
+      "title": "Cyberpunk Neon",
+      "style": "Cyan & Magenta Glow",
+      "description": "High-contrast cyberpunk aesthetic QR code with neon cyan and magenta accents.",
+      "src": "/cyberpunk_neon.png",
+      "tag": "Cyberpunk"
+    },
+    {
+      "id": "aesthetic_terracotta",
+      "title": "Aesthetic Terracotta",
+      "style": "Warm Clay & Terracotta",
+      "description": "Warm and organic earthy tones inspired by terracotta ceramics.",
+      "src": "/aesthetic_terracotta.png",
+      "tag": "Earthy"
+    },
+    {
+      "id": "dark_blue_qr",
+      "title": "Dark Blue Tech",
+      "style": "Deep Navy Minimal",
+      "description": "Clean, sleek deep navy blue styling for modern terminals and dark interfaces.",
+      "src": "/dark_blue_qr.png",
+      "tag": "Minimal"
+    },
+    {
+      "id": "gradient_blue_purple",
+      "title": "Gradient Blue & Purple",
+      "style": "Violet & Indigo Glow",
+      "description": "Vibrant and smooth color transition blending cool blue into electric purple.",
+      "src": "/gradient_blue_purple.png",
+      "tag": "Vibrant"
+    }
+  ],
   "terminal": {
     "commands": [
       "help",

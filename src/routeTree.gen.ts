@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as QrRouteImport } from './routes/qr'
+import { Route as QrcodesRouteImport } from './routes/qrcodes'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QrRoute = QrRouteImport.update({
+  id: '/qr',
+  path: '/qr',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QrcodesRoute = QrcodesRouteImport.update({
+  id: '/qrcodes',
+  path: '/qrcodes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/qr': typeof QrRoute
+  '/qrcodes': typeof QrcodesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/qr': typeof QrRoute
+  '/qrcodes': typeof QrcodesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/qr': typeof QrRoute
+  '/qrcodes': typeof QrcodesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/qr' | '/qrcodes'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/qr' | '/qrcodes'
+  id: '__root__' | '/' | '/qr' | '/qrcodes'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  QrRoute: typeof QrRoute
+  QrcodesRoute: typeof QrcodesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/qr': {
+      id: '/qr'
+      path: '/qr'
+      fullPath: '/qr'
+      preLoaderRoute: typeof QrRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/qrcodes': {
+      id: '/qrcodes'
+      path: '/qrcodes'
+      fullPath: '/qrcodes'
+      preLoaderRoute: typeof QrcodesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  QrRoute: QrRoute,
+  QrcodesRoute: QrcodesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
